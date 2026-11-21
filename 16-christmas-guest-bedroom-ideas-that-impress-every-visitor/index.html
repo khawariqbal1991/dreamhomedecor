@@ -183,8 +183,8 @@ a:hover{color:var(--accent-dk)}
 .entry .wp-block-column figure{margin:0}
 
 /* 3D Cozy Architectural Comparison & Reference Tables */
-.entry .wp-block-table,.entry .table-3d-wrap{margin:1.75em 0;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d)}
-.entry table{width:100%;border-collapse:collapse;font-size:.91rem;line-height:1.5;background:var(--surface);text-align:left;min-width:520px}
+.entry .wp-block-table,.entry .table-3d-wrap{display:block;width:100%;max-width:100%;margin:1.75em 0;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d)}
+.entry table{width:100%;border-collapse:collapse;font-size:.91rem;line-height:1.5;background:var(--surface);text-align:left;min-width:500px}
 .entry table thead tr{background:linear-gradient(135deg,#1f3a2e 0%,#152920 100%);color:#fff}
 .entry table thead th,.entry table thead td{padding:13px 16px;font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#fff;border-bottom:3px solid var(--gold);border-right:1px solid rgba(255,255,255,.12);white-space:nowrap}
 .entry table thead th:last-child,.entry table thead td:last-child{border-right:none}
@@ -248,36 +248,49 @@ a:hover{color:var(--accent-dk)}
 .site-footer a:hover{color:#ebd5b3;text-decoration:underline}
 .foot-bot{border-top:1px solid rgba(255,255,255,.12);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.81rem;color:rgba(255,255,255,.65)}
 
-@media(max-width:1024px){.single-grid{grid-template-columns:1fr}.sidebar{position:static}}
+@media(max-width:1024px){
+  .single-grid{grid-template-columns:minmax(0,1fr)}
+  .single-grid>*,.art-card,.entry{min-width:0;max-width:100%}
+  .sidebar{position:static}
+}
 @media(max-width:860px){
-  .hero-bento,.foot-grid,.post-grid{grid-template-columns:1fr}
+  .wrap{padding:0 12px}
+  .hero-bento,.foot-grid,.post-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-bento>*,.foot-grid>*,.post-grid>*{min-width:0;max-width:100%}
   .topbar-wave,.tb-mid-sep,.eyebrow-line,.desk-stats-bar,.hero-cta-wrap,.nav-search-btn{display:none !important}
   .topbar-in{padding:6px 8px;justify-content:center}
   .topbar-links{flex-direction:column;gap:2px;font-size:.72rem;line-height:1.35;width:100%}
   .tb-row{display:flex;justify-content:center;align-items:center;gap:6px;width:100%}
-  .nav-bar{padding:8px 14px;flex-wrap:wrap;gap:6px}
+  .nav-bar{padding:8px 12px;flex-wrap:wrap;gap:6px}
   .brand svg{height:38px}
   .mob-btn{display:inline-flex}
-  .main-nav{display:none;width:100%;grid-template-columns:repeat(2,1fr);gap:6px;padding:10px 0 4px;margin-top:4px;border-top:1px solid var(--border)}
+  .main-nav{display:none;width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:10px 0 4px;margin-top:4px;border-top:1px solid var(--border)}
   .main-nav.open{display:grid}
   .main-nav a{justify-content:center;text-align:center;padding:8px 10px;font-size:.82rem;background:var(--surface);border:1px solid var(--border);border-radius:10px}
   .main-nav a.active{background:#183528;color:#fff;border-color:#0e2118}
-  .hero{padding:14px 0 16px}
+  .hero{padding:12px 0 14px}
   .hero-left-3d{
-    padding:22px 20px 24px;
+    padding:20px 18px 22px;
     background:linear-gradient(90deg,#fbf8f3 50%,rgba(251,248,243,.84) 68%,rgba(251,248,243,.18) 100%),url('/assets/hero-mobile-vignette.webp') right center/cover no-repeat;
   }
-  .eyebrow-row{justify-content:flex-start;margin-bottom:14px}
-  .eyebrow{background:#e1ebdc;border:1px solid #c5d6bd;color:#183528;font-size:.69rem;padding:6px 13px;letter-spacing:.05em}
-  .hero h1{font-size:1.95rem;line-height:1.15;color:#1c1917;max-width:92%}
+  .eyebrow-row{justify-content:flex-start;margin-bottom:12px}
+  .eyebrow{background:#e1ebdc;border:1px solid #c5d6bd;color:#183528;font-size:.68rem;padding:5px 12px;letter-spacing:.05em}
+  .hero h1{font-size:1.85rem;line-height:1.15;color:#1c1917;max-width:94%}
   .h1-for-desk{display:inline;font-style:normal;color:#1c1917}
   .real-homes-hl{color:#c86428;font-style:normal}
-  .hero-lede{font-size:.94rem;color:#2c2622;max-width:78%;margin-bottom:4px}
+  .hero-lede{font-size:.93rem;color:#2c2622;max-width:82%;margin-bottom:4px}
   .mob-stats-grid{display:grid}
-  .art-card{padding:20px 15px}
-  .pin-wrap{padding:5px}
-  .entry table{font-size:.84rem;min-width:460px}
-  .entry table thead th,.entry table thead td,.entry table tbody td{padding:9px 11px}
+  .single-grid{margin:14px 0 34px;gap:22px}
+  .art-card{padding:18px 14px;border-radius:18px;overflow:hidden}
+  .art-card h1{font-size:1.52rem;line-height:1.22;margin:10px 0 12px;overflow-wrap:break-word}
+  .crumb{font-size:.78rem;overflow-wrap:break-word}
+  .byline{padding:10px 12px;gap:8px;font-size:.79rem;margin-bottom:18px}
+  .toc{padding:12px 14px;margin-bottom:20px}
+  .entry h2{font-size:1.25rem;padding:9px 13px;margin:1.5em 0 .55em}
+  .pin-wrap{padding:5px;margin:1.1em 0}
+  .author-box{flex-direction:column;align-items:flex-start;gap:12px;padding:18px 15px}
+  .entry table{font-size:.82rem;min-width:420px}
+  .entry table thead th,.entry table thead td,.entry table tbody td{padding:8px 10px}
 }</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "16 Christmas Guest Bedroom Ideas That Impress Every Visitor", "description": "A guest room that genuinely impresses visitors during the holidays is rarely about how much decor gets packed into it — it’s about the handful of details that", "image": ["/assets/uploads/Christmas-Guest-Bedroom-123233d9e7.webp"], "datePublished": "2026-08-20 07:45", "dateModified": "2026-08-20 07:45", "author": {"@type": "Person", "name": "Claire Vance", "url": "https://dreamhomedecor.net/about-us/"}, "publisher": {"@type": "Organization", "name": "Dream Home Decor", "url": "https://dreamhomedecor.net"}, "mainEntityOfPage": "https://dreamhomedecor.net/16-christmas-guest-bedroom-ideas-that-impress-every-visitor/"}</script>
 <script>
