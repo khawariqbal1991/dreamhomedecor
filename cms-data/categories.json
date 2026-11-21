@@ -1,106 +1,38 @@
 {
-  "balcony-ideas": {
-    "id": 55,
-    "slug": "balcony-ideas",
-    "name": "Balcony Ideas",
-    "title": "Balcony Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Balcony Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 0
-  },
-  "bathroom-ideas": {
-    "id": 7,
-    "slug": "bathroom-ideas",
-    "name": "Bathroom Ideas",
-    "title": "Bathroom Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Bathroom Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 86
-  },
-  "bedroom-ideas": {
-    "id": 26,
-    "slug": "bedroom-ideas",
-    "name": "Bedroom Ideas",
-    "title": "Bedroom Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Bedroom Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 89
-  },
-  "boho-bedroom-ideas": {
-    "id": 61,
-    "slug": "boho-bedroom-ideas",
-    "name": "Boho Bedroom Ideas",
-    "title": "Boho Bedroom Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Boho Bedroom Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 8
-  },
-  "ceiling-ideas": {
-    "id": 108,
-    "slug": "ceiling-ideas",
-    "name": "Ceiling Ideas",
-    "title": "Ceiling Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Ceiling Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 6
-  },
-  "christmas-home-decore": {
-    "id": 710,
-    "slug": "christmas-home-decore",
-    "name": "Christmas Home Decore",
-    "title": "Christmas Home Decore — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Christmas Home Decore inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 36
-  },
-  "home-decor-ideas": {
-    "id": 58,
-    "slug": "home-decor-ideas",
-    "name": "Home Decor Ideas",
-    "title": "Home Decor Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Home Decor Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 43
-  },
-  "home-office-ideas": {
-    "id": 54,
-    "slug": "home-office-ideas",
-    "name": "Home Office Ideas",
-    "title": "Home Office Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Home Office Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 0
-  },
-  "kitchen-ideas": {
-    "id": 52,
-    "slug": "kitchen-ideas",
-    "name": "Kitchen Ideas",
-    "title": "Kitchen Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Kitchen Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 0
-  },
-  "laundry-room-ideas": {
-    "id": 56,
-    "slug": "laundry-room-ideas",
-    "name": "Laundry Room Ideas",
-    "title": "Laundry Room Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Laundry Room Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 0
-  },
   "living-room-ideas": {
-    "id": 53,
     "slug": "living-room-ideas",
     "name": "Living Room Ideas",
-    "title": "Living Room Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Living Room Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
+    "description": "Explore cozy living room layouts, warm wood flooring, TV accent walls, wood wall paneling, and ambient lighting guides for modern homes.",
     "count": 11
   },
-  "mudroom-ideas": {
-    "id": 57,
-    "slug": "mudroom-ideas",
-    "name": "Mudroom Ideas",
-    "title": "Mudroom Ideas — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Mudroom Ideas inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 0
+  "bedroom-ideas": {
+    "slug": "bedroom-ideas",
+    "name": "Bedroom Ideas",
+    "description": "Discover relaxing master bedroom layouts, cozy nurseries, aesthetic wall decor, luxury bed frames, and warm neutral bedroom makeovers.",
+    "count": 65
   },
-  "uncategorized": {
-    "id": 1,
-    "slug": "uncategorized",
-    "name": "Uncategorized",
-    "title": "Uncategorized — Cozy Home Decor & Styling Guides",
-    "description": "Explore curated Uncategorized inspiration, layout tips, color palettes, and cozy home styling guides on Dream Home Decor.",
-    "count": 11
+  "bathroom-ideas": {
+    "slug": "bathroom-ideas",
+    "name": "Bathroom Ideas",
+    "description": "Browse spa-inspired bathroom makeovers, walk-in shower tile ideas, modern vanities, luxury master baths, and small bathroom upgrades.",
+    "count": 85
+  },
+  "christmas-home-decore": {
+    "slug": "christmas-home-decore",
+    "name": "Christmas Home Decor",
+    "description": "Celebrate the holidays with warm Christmas living room themes, festive bedroom makeovers, cozy seasonal garlands, and winter home styling ideas.",
+    "count": 43
+  },
+  "boho-bedroom-ideas": {
+    "slug": "boho-bedroom-ideas",
+    "name": "Boho Bedroom Ideas",
+    "description": "Layer woven tapestries, organic textures, earthy color schemes, rattan accents, and dreamy bohemian bedroom decor ideas.",
+    "count": 22
+  },
+  "ceiling-ideas": {
+    "slug": "ceiling-ideas",
+    "name": "Ceiling Ideas",
+    "description": "Elevate your fifth wall with rustic wood plank ceilings, modern acoustic wood slats, exposed beams, and minimalist ceiling designs.",
+    "count": 8
   }
 }
