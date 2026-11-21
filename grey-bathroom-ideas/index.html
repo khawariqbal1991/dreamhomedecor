@@ -17,7 +17,6 @@
 <link rel="preload" as="image" href="/assets/uploads/lucid-origin_Prompt_feature_image_Professional_i-aa6b58b517.webp" fetchpriority="high">
 <style id="dhd-critical-css">:root{
   --bg:#f6f1ea;
-  --bg-grad:radial-gradient(circle at 15% 10%,#fffaf3 0%,#f5efe6 52%,#ece3d5 100%);
   --surface:#ffffff;
   --cream:#efe7dc;
   --ink:#1e1916;
@@ -25,87 +24,81 @@
   --soft:#7d7268;
   --accent:#b85428;
   --accent-dk:#8e3c17;
-  --accent-glow:rgba(184,84,40,.22);
   --accent-tint:#fdf2ec;
   --sage:#1f3a2e;
   --sage-lt:#2e5343;
   --gold:#c89d66;
   --border:#e4d9c8;
   --bevel:#d5c7b2;
-  --radius-xl:24px;
-  --radius:18px;
+  --radius-xl:20px;
+  --radius:16px;
   --radius-sm:12px;
   --maxw:1240px;
   --font-sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --font-serif:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;
-  --shadow-3d:0 12px 28px -6px rgba(38,26,17,.10),0 4px 10px -2px rgba(38,26,17,.06),inset 0 1px 0 rgba(255,255,255,.95);
-  --shadow-3d-hover:0 22px 44px -10px rgba(38,26,17,.18),0 10px 20px -4px rgba(184,84,40,.12),inset 0 1px 0 #fff;
+  --shadow-3d:0 4px 12px rgba(38,26,17,.06);
+  --shadow-3d-hover:0 10px 22px rgba(38,26,17,.11);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;font-family:var(--font-sans);-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;color:var(--ink);font-family:var(--font-sans);font-size:16.5px;line-height:1.74;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{font-family:var(--font-sans);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:16.5px;line-height:1.74;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,picture,video{max-width:100%;height:auto;display:block}
-a{color:var(--accent);text-decoration:none;transition:all .2s cubic-bezier(.22,1,.36,1)}
+a{color:var(--accent);text-decoration:none}
 a:hover{color:var(--accent-dk)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
-/* 3D Top Studio Bar & Floating Glass Capsule Header */
-.topbar{background:linear-gradient(90deg,#1a3126 0%,#264637 50%,#1a3126 100%);color:rgba(255,255,255,.92);font-size:.77rem;border-bottom:1px solid rgba(255,255,255,.14)}
+/* Top Studio Bar & Crisp Tactile 3D Capsule Header (Zero GPU Blur Lag) */
+.topbar{background:#1f3a2e;color:rgba(255,255,255,.92);font-size:.77rem;border-bottom:1px solid rgba(255,255,255,.14)}
 .topbar-in{max-width:var(--maxw);margin:0 auto;padding:7px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .topbar-tag{font-weight:700;letter-spacing:.04em;color:#ebd5b3;display:inline-flex;align-items:center;gap:6px}
 .topbar-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .topbar-links a{color:rgba(255,255,255,.86);font-weight:600}
 .topbar-links a:hover{color:#fff;text-decoration:underline}
 
-.site-header{position:sticky;top:10px;z-index:100;padding:0 16px;margin-top:10px}
-.nav-bar{max-width:var(--maxw);margin:0 auto;padding:10px 18px;background:rgba(255,252,247,.90);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(228,217,200,.95);border-bottom:3px solid var(--bevel);border-radius:999px;box-shadow:0 14px 34px -8px rgba(35,24,16,.11),inset 0 1px 0 #fff;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;flex-shrink:0;transform:translateZ(0)}
-.brand svg{height:44px;width:auto;display:block;filter:drop-shadow(0 3px 6px rgba(30,25,22,.12))}
+.site-header{position:sticky;top:0;z-index:100;background:#faf6f0;border-bottom:3px solid var(--bevel);box-shadow:0 3px 10px rgba(35,24,16,.06)}
+.nav-bar{max-width:var(--maxw);margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;flex-shrink:0}
+.brand svg{height:44px;width:auto;display:block}
 .main-nav{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:nowrap}
-.main-nav a{display:inline-block;padding:7px 13px;border-radius:999px;font-size:.86rem;font-weight:700;color:var(--ink);white-space:nowrap;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
-.main-nav a:hover{background:var(--cream);transform:translateY(-1px)}
-.main-nav a.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dk) 100%);color:#fff;box-shadow:0 6px 14px -3px var(--accent-glow)}
+.main-nav a{display:inline-block;padding:7px 13px;border-radius:999px;font-size:.86rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.main-nav a:hover{background:var(--cream)}
+.main-nav a.active{background:var(--accent);color:#fff;border-bottom:2px solid var(--accent-dk)}
 .mob-btn{display:none;background:var(--cream);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);border-radius:999px;padding:7px 15px;font-size:.86rem;font-weight:800;cursor:pointer}
 
-/* 3D Bento Architectural Hero Showcase */
-.hero{padding:26px 0 22px;perspective:1200px}
-.hero-bento{display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:stretch}
-.hero-left-3d{background:linear-gradient(145deg,#ffffff 0%,#faf4ec 100%);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);padding:34px 36px;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-.hero-left-3d::before{content:"";position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,157,102,.18) 0%,transparent 70%);pointer-events:none}
-.eyebrow{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-tint);border:1px solid rgba(184,84,40,.25);padding:5px 13px;border-radius:999px;margin-bottom:14px;box-shadow:0 2px 6px rgba(184,84,40,.08)}
-.hero h1{font-family:var(--font-serif);font-size:clamp(1.85rem,3.4vw,2.65rem);line-height:1.15;color:var(--ink);margin:0 0 14px;letter-spacing:-.02em}
+/* Tactile 3D Bento Hero Showcase (Zero Scroll Lag) */
+.hero{padding:24px 0 20px}
+.hero-bento{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
+.hero-left-3d{background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);padding:32px 34px;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-tint);border:1px solid rgba(184,84,40,.25);padding:5px 13px;border-radius:999px;margin-bottom:14px}
+.hero h1{font-family:var(--font-serif);font-size:clamp(1.85rem,3.4vw,2.6rem);line-height:1.15;color:var(--ink);margin:0 0 14px;letter-spacing:-.02em}
 .hero-lede{font-size:1.02rem;color:var(--muted);margin:0 0 20px}
 .hero-stats-3d{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:auto;padding-top:14px;border-top:1px dashed var(--border)}
-.h-stat{background:rgba(246,241,234,.75);border:1px solid var(--border);border-radius:12px;padding:10px 12px;text-align:center}
+.h-stat{background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--bevel);border-radius:12px;padding:10px 12px;text-align:center}
 .h-stat strong{display:block;font-size:1.15rem;color:var(--sage);font-weight:900}
 .h-stat span{font-size:.73rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 
-.hero-card{border-radius:var(--radius-xl);overflow:hidden;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d);display:flex;flex-direction:column;color:inherit;transform:translateZ(0);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
-.hero-card:hover{transform:translate3d(0,-6px,12px) rotateY(-1.5deg);box-shadow:var(--shadow-3d-hover)}
+.hero-card{border-radius:var(--radius-xl);overflow:hidden;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d);display:flex;flex-direction:column;color:inherit}
 .hero-img{position:relative;aspect-ratio:16/10.5;overflow:hidden;background:var(--cream)}
-.hero-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.22,1,.36,1)}
-.hero-card:hover .hero-img img{transform:scale(1.05)}
-.hero-body{padding:20px 24px;background:linear-gradient(180deg,#fff 0%,#fcf9f4 100%);flex:1;display:flex;flex-direction:column;justify-content:center}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-body{padding:20px 24px;background:var(--surface);flex:1;display:flex;flex-direction:column;justify-content:center}
 .hero-body h2{font-family:var(--font-serif);font-size:1.26rem;margin:8px 0 4px;line-height:1.3;color:var(--ink)}
 
-/* 3D Tactile Room Category Pills */
-.room-shelf{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-radius:var(--radius);padding:14px 18px;margin-top:20px;box-shadow:var(--shadow-3d);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+/* Tactile 3D Room Category Pills */
+.room-shelf{background:var(--surface);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius);padding:14px 18px;margin-top:18px;box-shadow:var(--shadow-3d);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .room-lbl{font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--sage);margin-right:4px}
-.room-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);font-size:.83rem;font-weight:700;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
-.room-pill:hover,.room-pill.active{background:linear-gradient(135deg,var(--sage) 0%,var(--sage-lt) 100%);color:#fff;border-color:var(--sage);transform:translateY(-2px);box-shadow:0 6px 14px rgba(31,58,46,.2)}
-.room-cnt{font-size:.72rem;opacity:.82;font-weight:700;background:rgba(0,0,0,.06);padding:1px 7px;border-radius:999px}
+.room-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--border);border-bottom:3px solid var(--bevel);color:var(--ink);font-size:.83rem;font-weight:700}
+.room-pill:hover,.room-pill.active{background:var(--sage);color:#fff;border-color:#12241c}
+.room-cnt{font-size:.72rem;opacity:.85;font-weight:700;background:rgba(0,0,0,.07);padding:1px 7px;border-radius:999px}
 .room-pill:hover .room-cnt,.room-pill.active .room-cnt{background:rgba(255,255,255,.2)}
 
-/* 3D Section Header & 10-Card Fast Grid */
-.sec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:30px 0 20px;background:var(--surface);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow-3d)}
+/* 3D Section Header & 10-Card Ultra-Smooth Grid */
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:28px 0 18px;background:var(--surface);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow-3d)}
 .sec-head h2{font-family:var(--font-serif);font-size:1.42rem;margin:0;color:var(--ink)}
-.post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:34px;perspective:1200px}
-.card{background:linear-gradient(180deg,#ffffff 0%,#fdfaf5 100%);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;transform:translateZ(0);transition:transform .26s cubic-bezier(.22,1,.36,1),box-shadow .26s ease,border-color .26s ease;content-visibility:auto;contain-intrinsic-size:1px 430px}
-.card:hover{transform:translate3d(0,-7px,14px) rotateX(1deg);box-shadow:var(--shadow-3d-hover);border-color:#cbbba4}
+.post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:34px}
+.card{background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-3d);display:flex;flex-direction:column}
 .card-thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--cream);border-bottom:1px solid var(--border);display:block}
-.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-.card:hover .card-thumb img{transform:scale(1.055)}
-.card-num-badge{position:absolute;top:12px;right:12px;background:rgba(30,25,22,.78);backdrop-filter:blur(6px);color:#fff;font-size:.73rem;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.2)}
+.card-thumb img{width:100%;height:100%;object-fit:cover}
+.card-num-badge{position:absolute;top:12px;right:12px;background:#1e1916;color:#fff;font-size:.73rem;font-weight:800;padding:4px 10px;border-radius:999px}
 .cat-badge{display:inline-block;font-size:.71rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:4px 11px;border-radius:999px;background:var(--accent-tint);color:var(--accent);border:1px solid rgba(184,84,40,.18);align-self:flex-start}
 .card-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
 .card-title{font-family:var(--font-serif);font-size:1.22rem;line-height:1.33;margin:10px 0 10px}
@@ -117,22 +110,22 @@ a:hover{color:var(--accent-dk)}
 
 /* 3D Tactile Pagination Bar */
 .pager{margin:26px 0 50px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.page-num{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;padding:0 15px;border-radius:12px;background:var(--surface);border:1px solid var(--border);border-bottom:3px solid var(--bevel);color:var(--ink);font-weight:800;font-size:.9rem;box-shadow:0 4px 10px rgba(30,25,22,.05);transition:transform .15s ease,background .15s ease}
-.page-num:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent)}
-.page-num.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dk) 100%);color:#fff;border-color:var(--accent-dk);box-shadow:0 8px 18px var(--accent-glow)}
+.page-num{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;padding:0 15px;border-radius:12px;background:var(--surface);border:1px solid var(--border);border-bottom:3px solid var(--bevel);color:var(--ink);font-weight:800;font-size:.9rem}
+.page-num:hover{border-color:var(--accent);color:var(--accent)}
+.page-num.active{background:var(--accent);color:#fff;border-color:var(--accent-dk)}
 
 /* Single Article 3D Studio Layout */
 .single-grid{display:grid;grid-template-columns:minmax(0,1fr) 335px;gap:32px;align-items:start;margin:26px 0 52px}
 .crumb{font-size:.83rem;color:var(--soft);margin-bottom:12px}
 .crumb a{color:var(--muted);font-weight:700}
-.art-card{background:var(--surface);border:1px solid var(--border);border-bottom:6px solid var(--bevel);border-radius:var(--radius-xl);padding:36px 40px;box-shadow:var(--shadow-3d)}
+.art-card{background:var(--surface);border:1px solid var(--border);border-bottom:6px solid var(--bevel);border-radius:var(--radius-xl);padding:34px 38px;box-shadow:var(--shadow-3d)}
 .art-card h1{font-family:var(--font-serif);font-size:clamp(1.75rem,3.2vw,2.45rem);line-height:1.18;color:var(--ink);margin:12px 0 16px}
-.byline{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:14px;margin-bottom:24px;font-size:.85rem;color:var(--muted)}
-.feat-hero{margin:0 0 24px;border-radius:var(--radius);overflow:hidden;background:var(--cream);box-shadow:var(--shadow-3d);border:1px solid var(--border)}
+.byline{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--bevel);border-radius:14px;margin-bottom:24px;font-size:.85rem;color:var(--muted)}
+.feat-hero{margin:0 0 24px;border-radius:var(--radius);overflow:hidden;background:var(--cream);border:1px solid var(--border);border-bottom:4px solid var(--bevel)}
 .feat-hero img{width:100%;max-height:540px;object-fit:cover}
 
 /* Minimized 3D Drawer Table of Contents */
-.toc{background:linear-gradient(145deg,#faf6f0 0%,#f2ebe0 100%);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-left:5px solid var(--accent);border-radius:14px;padding:14px 18px;margin:0 0 26px;box-shadow:0 6px 16px rgba(30,25,22,.05)}
+.toc{background:#faf6f0;border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-left:5px solid var(--accent);border-radius:14px;padding:14px 18px;margin:0 0 26px}
 .toc summary{font-weight:800;font-size:.95rem;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none}
 .toc summary::-webkit-details-marker{display:none}
 .toc summary::after{content:"+ Expand Guide List";font-size:.76rem;font-weight:800;color:var(--accent);background:var(--surface);padding:4px 10px;border-radius:999px;border:1px solid var(--border)}
@@ -141,46 +134,52 @@ a:hover{color:var(--accent-dk)}
 .toc a{color:var(--muted);font-weight:600}
 .toc a:hover{color:var(--accent);text-decoration:underline}
 
-/* Article Typography & 3D Framed Gallery Photos (0.3s content-visibility) */
-.entry h2{font-family:var(--font-serif);font-size:clamp(1.36rem,2.3vw,1.74rem);color:var(--ink);margin:1.9em 0 .6em;line-height:1.28;padding:10px 16px;background:linear-gradient(90deg,var(--bg) 0%,transparent 100%);border-left:4px solid var(--accent);border-radius:0 10px 10px 0}
+/* Article Typography & 120fps Butter-Smooth 3D Framed Gallery Photos */
+.entry h2{font-family:var(--font-serif);font-size:clamp(1.36rem,2.3vw,1.74rem);color:var(--ink);margin:1.9em 0 .6em;line-height:1.28;padding:10px 16px;background:var(--bg);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-left:5px solid var(--accent);border-radius:12px}
 .entry h3{font-family:var(--font-serif);font-size:1.2rem;color:var(--ink);margin:1.45em 0 .45em}
 .entry p{margin:0 0 1.22em;color:#292524}
-.entry figure,.entry .wp-block-image{margin:1.6em 0;content-visibility:auto;contain-intrinsic-size:1px 520px}
-.pin-wrap{position:relative;display:block;overflow:hidden;border-radius:var(--radius);background:var(--cream);margin:1.5em 0;padding:8px;background:linear-gradient(145deg,#ffffff 0%,#f3ece2 100%);border:1px solid var(--border);border-bottom:4px solid var(--bevel);box-shadow:var(--shadow-3d);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
+.entry figure,.entry .wp-block-image{margin:1.5em 0}
+.pin-wrap{position:relative;display:block;overflow:hidden;border-radius:var(--radius);margin:1.4em 0;padding:7px;background:#faf6f0;border:1px solid var(--border);border-bottom:4px solid var(--bevel)}
 .entry figure .pin-wrap,.feat-hero .pin-wrap{margin:0}
-.pin-wrap:hover{transform:translate3d(0,-4px,8px);box-shadow:var(--shadow-3d-hover)}
-.pin-wrap img{width:100%;height:auto;display:block;border-radius:11px;transition:transform .42s cubic-bezier(.22,1,.36,1);cursor:zoom-in}
-.pin-wrap:hover img,.pin-wrap.touch-zoom img{transform:scale(1.042)}
-.pin-btn{position:absolute;top:18px;left:18px;z-index:10;background:linear-gradient(135deg,#e60023 0%,#b8001c 100%);color:#fff !important;font-family:var(--font-sans);font-size:.8rem;font-weight:800;padding:7px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 6px 16px rgba(230,0,35,.35),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .16s ease,box-shadow .16s ease;text-decoration:none !important}
-.pin-btn:hover{transform:scale(1.07) translateY(-1px);box-shadow:0 10px 22px rgba(230,0,35,.48);color:#fff !important}
-.zoom-hint{position:absolute;bottom:18px;right:18px;z-index:9;background:rgba(28,25,23,.76);color:#fff;font-size:.73rem;font-weight:700;padding:5px 12px;border-radius:999px;pointer-events:none;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18)}
+.pin-wrap img{width:100%;height:auto;display:block;border-radius:10px;cursor:zoom-in}
+.pin-btn{position:absolute;top:16px;left:16px;z-index:10;background:#e60023;color:#fff !important;font-family:var(--font-sans);font-size:.8rem;font-weight:800;padding:7px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;border-bottom:2px solid #9e0018;text-decoration:none !important}
+.pin-btn:hover{background:#bd001c;color:#fff !important}
+.zoom-hint{position:absolute;bottom:16px;right:16px;z-index:9;background:rgba(28,25,23,.82);color:#fff;font-size:.73rem;font-weight:700;padding:4px 11px;border-radius:999px;pointer-events:none}
 
-.dhd-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,14,13,.93);align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
+/* Desktop-Only Hover Effects (So Mobile Touch Scrolling is 100% Lag-Free 120fps) */
+@media(hover:hover) and (pointer:fine){
+  .card{transition:transform .2s ease,box-shadow .2s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-3d-hover)}
+  .card-thumb img,.hero-img img,.pin-wrap img{transition:transform .3s ease}
+  .card:hover .card-thumb img,.hero-card:hover .hero-img img,.pin-wrap:hover img{transform:scale(1.035)}
+}
+
+.dhd-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,14,13,.94);align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
 .dhd-lightbox.open{display:flex}
-.dhd-lightbox img{max-width:95vw;max-height:90vh;border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.6);object-fit:contain}
-.dhd-lb-close{position:fixed;top:18px;right:20px;background:#fff;color:#1c1917;border:0;border-radius:999px;padding:9px 18px;font-weight:800;font-size:.88rem;cursor:pointer;z-index:10000;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.dhd-lightbox img{max-width:95vw;max-height:90vh;border-radius:12px;object-fit:contain}
+.dhd-lb-close{position:fixed;top:18px;right:20px;background:#fff;color:#1c1917;border:0;border-radius:999px;padding:9px 18px;font-weight:800;font-size:.88rem;cursor:pointer;z-index:10000}
 
-.founder-img{width:78px;height:78px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 6px 16px rgba(30,25,22,.15);flex-shrink:0}
-.byline-img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 8px rgba(30,25,22,.12);flex-shrink:0}
-.author-box{display:flex;gap:18px;align-items:flex-start;background:linear-gradient(145deg,#faf5ed 0%,#f1e8dc 100%);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius);padding:24px;margin-top:36px;box-shadow:var(--shadow-3d)}
+.founder-img{width:78px;height:78px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 3px 10px rgba(30,25,22,.12);flex-shrink:0}
+.byline-img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff;flex-shrink:0}
+.author-box{display:flex;gap:18px;align-items:flex-start;background:#faf5ed;border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius);padding:22px;margin-top:34px}
 .author-box h3{margin:0 0 6px;font-family:var(--font-serif);font-size:1.12rem}
 .author-box p{margin:0;font-size:.9rem;color:var(--muted)}
 
 /* 3D Sidebar Widgets */
-.sidebar{display:flex;flex-direction:column;gap:22px;position:sticky;top:88px}
-.widget{background:linear-gradient(180deg,#ffffff 0%,#fcf9f4 100%);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-3d)}
+.sidebar{display:flex;flex-direction:column;gap:22px;position:sticky;top:82px}
+.widget{background:var(--surface);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-3d)}
 .w-title{font-family:var(--font-serif);font-size:1.12rem;margin:0 0 14px;padding-bottom:9px;border-bottom:2px solid var(--border);color:var(--ink)}
 .rec-list,.cat-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-.rec-item{display:flex;gap:12px;align-items:center;padding:6px;border-radius:12px;transition:background .15s ease}
+.rec-item{display:flex;gap:12px;align-items:center;padding:5px;border-radius:10px}
 .rec-item:hover{background:var(--bg)}
 .rec-thumb{width:70px;height:54px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--cream);border:1px solid var(--border)}
 .rec-thumb img{width:100%;height:100%;object-fit:cover}
 .rec-t{font-size:.87rem;font-weight:700;line-height:1.33;color:var(--ink)}
-.cat-list a{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-radius:11px;background:var(--bg);border:1px solid var(--border);color:var(--ink);font-size:.87rem;font-weight:700;transition:transform .15s ease,background .15s ease}
-.cat-list a:hover{background:var(--accent-tint);color:var(--accent);border-color:rgba(184,84,40,.3);transform:translateX(3px)}
+.cat-list a{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-radius:11px;background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);font-size:.87rem;font-weight:700}
+.cat-list a:hover{background:var(--accent-tint);color:var(--accent)}
 
 /* 3D Architectural Dark Espresso Footer */
-.site-footer{background:linear-gradient(180deg,#1c1815 0%,#120f0d 100%);color:rgba(255,255,255,.86);padding:54px 0 32px;margin-top:64px;font-size:.89rem;border-top:4px solid var(--gold)}
+.site-footer{background:#181412;color:rgba(255,255,255,.86);padding:52px 0 30px;margin-top:60px;font-size:.89rem;border-top:4px solid var(--gold)}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-bottom:34px}
 .site-footer h4{color:#ebd5b3;font-size:.88rem;text-transform:uppercase;letter-spacing:.08em;margin:0 0 14px}
 .site-footer p{color:rgba(255,255,255,.74);font-size:.87rem}
@@ -191,15 +190,13 @@ a:hover{color:var(--accent-dk)}
 
 @media(max-width:1024px){.single-grid{grid-template-columns:1fr}.sidebar{position:static}}
 @media(max-width:860px){
-  .site-header{top:0;margin-top:0;padding:0}
-  .nav-bar{border-radius:0;border-left:0;border-right:0}
   .hero-bento,.foot-grid,.post-grid{grid-template-columns:1fr}
   .hero-left-3d{padding:24px 20px}
   .mob-btn{display:inline-flex}
   .main-nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding-top:10px}
   .main-nav.open{display:flex}
   .nav-bar{flex-wrap:wrap}
-  .art-card{padding:22px 16px}
+  .art-card{padding:20px 15px}
   .pin-wrap{padding:5px}
 }</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "14 Grey Bathroom Ideas That Look Elegant & Expensive", "description": "14 grey bathroom ideas that look elegant and expensive—complete looks in warm greige, charcoal, grey marble, and tonal grey with brass and wood to copy at home.", "image": ["/assets/uploads/lucid-origin_Prompt_feature_image_Professional_i-aa6b58b517.webp"], "datePublished": "2026-06-14 10:31", "dateModified": "2026-06-14 10:31", "author": {"@type": "Person", "name": "Claire Vance", "url": "https://dreamhomedecor.net/about-us/"}, "publisher": {"@type": "Organization", "name": "Dream Home Decor", "url": "https://dreamhomedecor.net"}, "mainEntityOfPage": "https://dreamhomedecor.net/grey-bathroom-ideas/"}</script>
@@ -870,10 +867,6 @@ document.addEventListener('DOMContentLoaded', function() {
     img.addEventListener('click', function() {
       openDhdZoom(img.src, img.alt);
     });
-    wrap.addEventListener('touchstart', function() {
-      wrap.classList.add('touch-zoom');
-      setTimeout(function() { wrap.classList.remove('touch-zoom'); }, 900);
-    }, {passive: true});
   });
 });
 </script>
