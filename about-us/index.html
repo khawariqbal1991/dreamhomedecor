@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us &amp; Editorial Team — Dream Home Decor</title>
-<meta name="description" content="Meet Claire Vance, Founder &amp; Lead Interior Stylist at Dream Home Decor, and learn how we curate cozy living room and home styling guides.">
+<title>About Us &amp; Our Austin Design Studio — Dream Home Decor</title>
+<meta name="description" content="Meet Claire Vance, Founder &amp; Lead Interior Stylist at Dream Home Decor in Austin, TX, and explore our 4-step interior styling methodology.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://dreamhomedecor.net/about-us/">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dream Home Decor">
-<meta property="og:title" content="About Us &amp; Editorial Team — Dream Home Decor">
-<meta property="og:description" content="Meet Claire Vance, Founder &amp; Lead Interior Stylist at Dream Home Decor, and learn how we curate cozy living room and home styling guides.">
+<meta property="og:title" content="About Us &amp; Our Austin Design Studio — Dream Home Decor">
+<meta property="og:description" content="Meet Claire Vance, Founder &amp; Lead Interior Stylist at Dream Home Decor in Austin, TX, and explore our 4-step interior styling methodology.">
 <meta property="og:url" content="https://dreamhomedecor.net/about-us/">
 
 <style id="dhd-critical-css">:root{
@@ -46,23 +46,16 @@ a{color:var(--accent);text-decoration:none}
 a:hover{color:var(--accent-dk)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
-/* Top Studio Bar & Crisp Tactile 3D Capsule Header (Zero GPU Blur Lag) */
-.topbar{background:#1f3a2e;color:rgba(255,255,255,.92);font-size:.77rem;border-bottom:1px solid rgba(255,255,255,.14)}
-.topbar-in{max-width:var(--maxw);margin:0 auto;padding:7px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.topbar-tag{font-weight:700;letter-spacing:.04em;color:#ebd5b3;display:inline-flex;align-items:center;gap:6px}
-.topbar-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.topbar-links a{color:rgba(255,255,255,.86);font-weight:600}
-.topbar-links a:hover{color:#fff;text-decoration:underline}
-
-.site-header{position:sticky;top:0;z-index:100;background:#faf6f0;border-bottom:3px solid var(--bevel);box-shadow:0 3px 10px rgba(35,24,16,.06)}
-.nav-bar{max-width:var(--maxw);margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;flex-shrink:0}
-.brand svg{height:44px;width:auto;display:block}
-.main-nav{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:nowrap}
-.main-nav a{display:inline-block;padding:7px 13px;border-radius:999px;font-size:.86rem;font-weight:700;color:var(--ink);white-space:nowrap}
+/* Crisp Tactile 3D Header (Compact & Clean on Mobile + Desktop) */
+.site-header{position:sticky;top:0;z-index:100;background:#faf6f0;border-bottom:2px solid var(--bevel);box-shadow:0 2px 8px rgba(35,24,16,.05)}
+.nav-bar{max-width:var(--maxw);margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;flex-shrink:0}
+.brand svg{height:40px;width:auto;display:block}
+.main-nav{display:flex;align-items:center;gap:3px;margin-left:auto;flex-wrap:nowrap}
+.main-nav a{display:inline-block;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap}
 .main-nav a:hover{background:var(--cream)}
 .main-nav a.active{background:var(--accent);color:#fff;border-bottom:2px solid var(--accent-dk)}
-.mob-btn{display:none;background:var(--cream);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);border-radius:999px;padding:7px 15px;font-size:.86rem;font-weight:800;cursor:pointer}
+.mob-btn{display:none;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);border-radius:999px;padding:6px 13px;font-size:.82rem;font-weight:800;cursor:pointer}
 
 /* Tactile 3D Bento Hero Showcase (Zero Scroll Lag) */
 .hero{padding:24px 0 20px}
@@ -190,11 +183,14 @@ a:hover{color:var(--accent-dk)}
 @media(max-width:1024px){.single-grid{grid-template-columns:1fr}.sidebar{position:static}}
 @media(max-width:860px){
   .hero-bento,.foot-grid,.post-grid{grid-template-columns:1fr}
-  .hero-left-3d{padding:24px 20px}
+  .hero-left-3d{padding:20px 18px}
+  .nav-bar{padding:7px 14px;flex-wrap:wrap;gap:6px}
+  .brand svg{height:34px}
   .mob-btn{display:inline-flex}
-  .main-nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding-top:10px}
-  .main-nav.open{display:flex}
-  .nav-bar{flex-wrap:wrap}
+  .main-nav{display:none;width:100%;grid-template-columns:repeat(2,1fr);gap:6px;padding:10px 0 4px;margin-top:4px;border-top:1px solid var(--border)}
+  .main-nav.open{display:grid}
+  .main-nav a{text-align:center;padding:8px 10px;font-size:.82rem;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+  .main-nav a.active{background:var(--accent);color:#fff;border-color:var(--accent-dk)}
   .art-card{padding:20px 15px}
   .pin-wrap{padding:5px}
 }</style>
@@ -212,18 +208,6 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
 <!-- Custom Header Verification / Scripts -->
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-in">
-    <span class="topbar-tag">🏡 3D Spatial Living Room &amp; Cozy Home Styling Studio · Austin, TX</span>
-    <div class="topbar-links">
-      <a href="/about-us/">About Claire Vance</a>
-      <a href="/contact/">Contact</a>
-      <a href="/privacy-policy/">Privacy Policy</a>
-      <a href="/disclaimer/">Disclaimer</a>
-      <a href="/terms-and-conditions/">Terms</a>
-    </div>
-  </div>
-</div>
 <header class="site-header">
   <div class="nav-bar">
     <a class="brand" href="/" aria-label="Dream Home Decor Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 68" width="235" height="48" role="img" aria-label="Dream Home Decor">
@@ -250,7 +234,7 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
     <text x="1" y="55" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#b85428" letter-spacing="3.8">3D LIVING &amp; DECOR</text>
   </g>
 </svg></a>
-    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Rooms</button>
+    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Menu</button>
     <nav class="main-nav" id="dhd-nav" aria-label="Main Navigation">
       <a href="/" class="">Home</a>
       <a href="/category/living-room-ideas/" class="">Living Room</a>
@@ -267,30 +251,93 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
 <main class="wrap">
               <div class="single-grid">
                 <article class="art-card">
-                  <div class="crumb"><a href="/">Home</a> › <span>About Us</span></div>
-                  <h1>About Us</h1>
-                  <div class="entry"><div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:#f3efe9;border:1px solid #e7e1d8;border-radius:14px;padding:24px;margin-bottom:26px">
-  <img loading="eager" fetchpriority="high" decoding="async" src="/assets/founder-claire-vance.webp" alt="Claire Vance — Founder & Lead Interior Stylist at Dream Home Decor" width="140" height="140" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 6px 18px rgba(0,0,0,0.1);flex-shrink:0">
-  <div style="flex:1;min-width:240px">
-    <span style="display:inline-block;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b4532a;background:#fdf3ee;padding:3px 10px;border-radius:999px;margin-bottom:6px">FOUNDER &amp; LEAD INTERIOR STYLIST</span>
-    <h2 style="margin:4px 0 8px;border:0;padding:0" id="meet-claire-vance-1">Meet Claire Vance</h2>
-    <p style="margin:0;color:#57534e">Based in Austin, Texas, Claire Vance founded <strong>Dream Home Decor</strong> (<code>dreamhomedecor.net</code>) to help everyday homeowners and apartment renters create warm, livable, and timeless interiors without hiring a five-figure design firm.</p>
+                  <div class="crumb"><a href="/">Home</a> › <span>About Us &amp; Editorial Studio</span></div>
+                  <h1>About Us &amp; Editorial Studio</h1>
+                  <div class="entry"><nav aria-label="Legal and Trust Center Navigation" style="background:#ffffff;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:13px 16px;margin-bottom:24px;display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+  <span style="font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#b85428;margin-right:4px">🏛️ Trust &amp; Legal Center:</span>
+  <a href="/about-us/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#1f3a2e;color:#fff;border-color:#12241c;">About Us & Studio</a><a href="/contact/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">Contact Us</a><a href="/privacy-policy/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">Privacy Policy</a><a href="/gdpr/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">GDPR & CCPA Rights</a><a href="/cookie-policy/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">Cookie Policy</a><a href="/terms-and-conditions/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">Terms & Conditions</a><a href="/disclaimer/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">Disclaimer</a><a href="/dmca-policy/" style="display:inline-block;padding:6px 13px;border-radius:999px;font-size:.82rem;font-weight:700;border:1px solid;border-bottom-width:2px;text-decoration:none;background:#faf6f0;color:#1e1916;border-color:#e4d9c8;">DMCA Policy</a>
+</nav><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px">
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:16px;text-align:center">
+    <strong style="display:block;font-size:1.45rem;color:#1f3a2e;font-weight:900">234+</strong>
+    <span style="font-size:.8rem;color:#5c534c;font-weight:700">In-Depth Room Guides</span>
+  </div>
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:16px;text-align:center">
+    <strong style="display:block;font-size:1.45rem;color:#1f3a2e;font-weight:900">4,000+</strong>
+    <span style="font-size:.8rem;color:#5c534c;font-weight:700">Original WebP Visuals</span>
+  </div>
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:16px;text-align:center">
+    <strong style="display:block;font-size:1.45rem;color:#1f3a2e;font-weight:900">13 Rooms</strong>
+    <span style="font-size:.8rem;color:#5c534c;font-weight:700">Living, Bed, Bath &amp; More</span>
+  </div>
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:16px;text-align:center">
+    <strong style="display:block;font-size:1.45rem;color:#1f3a2e;font-weight:900">Austin, TX</strong>
+    <span style="font-size:.8rem;color:#5c534c;font-weight:700">U.S. Editorial Studio</span>
   </div>
 </div>
 
-<h2 id="our-design-philosophy-2">Our Design Philosophy</h2>
-<p>At <strong>Dream Home Decor</strong>, we believe a great home should feel collected, comfortable, and deeply personal—never like a cold furniture showroom. Whether you are styling a small apartment living room, refreshing a primary bedroom with layered linen textures, or planning a warm spa-inspired bathroom remodel, our room-by-room guides break down exact color palettes, furniture proportions, lighting layers, and budget-friendly swaps.</p>
+<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:#faf5ed;border:1px solid #e4d9c8;border-bottom:4px solid #d5c7b2;border-radius:16px;padding:24px;margin-bottom:26px">
+  <img loading="eager" fetchpriority="high" decoding="async" src="/assets/founder-claire-vance.webp" alt="Claire Vance — Founder & Lead Interior Stylist at Dream Home Decor" width="145" height="145" style="width:145px;height:145px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 6px 18px rgba(0,0,0,0.12);flex-shrink:0">
+  <div style="flex:1;min-width:250px">
+    <span style="display:inline-block;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b85428;background:#fdf2ec;border:1px solid rgba(184,84,40,.22);padding:4px 11px;border-radius:999px;margin-bottom:8px">FOUNDER &amp; LEAD INTERIOR STYLIST · AUSTIN, TEXAS</span>
+    <h2 style="margin:4px 0 8px;border:0;padding:0;background:none" id="meet-claire-vance-1">Meet Claire Vance</h2>
+    <p style="margin:0 0 10px;color:#5c534c">Based in Austin, Texas, <strong>Claire Vance</strong> founded <strong>Dream Home Decor</strong> (<code>dreamhomedecor.net</code>) after spending over a decade styling residential living spaces, historic bungalows, and modern urban apartments across Texas, California, and the Pacific Northwest.</p>
+    <p style="margin:0;color:#5c534c">Her mission is simple: translate high-end architectural and interior design principles—spatial proportion, warm neutral layering, organic wood tones, and multi-point lighting—into clear, practical guides that any homeowner or renter can apply on a realistic budget.</p>
+  </div>
+</div>
 
-<h2 id="what-we-cover-3">What We Cover</h2>
-<ul>
-  <li><strong>Cozy Living Room Layouts &amp; Styling:</strong> Sofa placement, rug sizing rules, warm wood tones, accent walls, lighting layers, and coffee table styling.</li>
-  <li><strong>Restful Bedrooms &amp; Boho Sanctuaries:</strong> Earthy neutral paint colors, organic bedding layers, small bedroom storage, and calming focal walls.</li>
-  <li><strong>Spa Bathrooms &amp; Smart Makeovers:</strong> Vanity lighting, tile pairings, warm brass hardware, and small bathroom layout ideas.</li>
-  <li><strong>Seasonal &amp; Whole-Home Decor:</strong> Entryways, ceiling details, holiday mantels, and timeless architectural touches.</li>
-</ul>
+<figure style="margin:24px 0;border-radius:16px;overflow:hidden;border:1px solid #e4d9c8;border-bottom:4px solid #d5c7b2;background:#faf6f0;padding:8px">
+  <img loading="lazy" decoding="async" src="/assets/about-design-studio.webp" alt="Inside the Dream Home Decor Interior Styling Worktable in Austin, Texas — fabric swatches, oak wood samples, travertine tiles, and floor plans" width="1080" height="640" style="width:100%;height:auto;border-radius:11px;display:block">
+  <figcaption style="font-size:.83rem;color:#5c534c;padding:10px 8px 4px;text-align:center">Inside our Austin, Texas design studio worktable: testing warm oak finishes, linen and bouclé upholstery swatches, travertine stone, and paint LRV cards under natural daylight.</figcaption>
+</figure>
 
-<h2 id="get-in-touch-4">Get in Touch</h2>
-<p>Have a design question, feedback on one of our guides, or a press/partnership inquiry? Visit our <a href="/contact/">Contact Us</a> page to send a message directly to our editorial desk.</p></div>
+<h2 id="1-our-story-design-philosophy-2">1. Our Story &amp; Design Philosophy</h2>
+<p>Most home decor websites fall into one of two extremes: either unattainable multi-million-dollar architectural showpieces that feel cold and unlivable, or generic mass-market furniture checklists that lack character. We launched <strong>Dream Home Decor</strong> to bridge that gap.</p>
+<p>Every room guide published on <code>dreamhomedecor.net</code> is built around what we call <strong>&ldquo;Livable Architectural Warmth&rdquo;</strong>—combining timeless foundational materials (white oak, walnut, unlacquered brass, natural linen, terracotta, and limewash plaster) with functional floor plans that work for real families, pets, and everyday routines.</p>
+
+<h2 id="2-our-4-step-editorial-spatial-research-methodology-3">2. Our 4-Step Editorial &amp; Spatial Research Methodology</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0 24px">
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <h3 style="margin:0 0 8px;font-size:1.04rem;color:#1e1916">📐 1. Spatial Proportion &amp; Clearance Math</h3>
+    <p style="margin:0;font-size:.9rem;color:#5c534c">We verify standard U.S. residential dimensions—such as 30–36 inch walkway clearances, 14–18 inch sofa-to-coffee-table reach, and proper 8×10 vs. 9×12 area rug anchoring—so every layout actually works in real rooms.</p>
+  </div>
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <h3 style="margin:0 0 8px;font-size:1.04rem;color:#1e1916">🎨 2. Daylight &amp; Kelvin Lighting Testing</h3>
+    <p style="margin:0;font-size:.9rem;color:#5c534c">Paint colors and wood stains shift dramatically between north-facing daylight and 2700K warm evening lamps. We explain Light Reflectance Values (LRV) and warm undertones so you avoid muddy or sterile walls.</p>
+  </div>
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <h3 style="margin:0 0 8px;font-size:1.04rem;color:#1e1916">🧶 3. Tactile Material Pairing</h3>
+    <p style="margin:0;font-size:.9rem;color:#5c534c">A cozy room relies on contrast in texture. We pair smooth architectural surfaces (marble, drywall, glass) with nubby bouclé, washed Belgian linen, woven jute, and grained hardwoods.</p>
+  </div>
+  <div style="background:#faf6f0;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <h3 style="margin:0 0 8px;font-size:1.04rem;color:#1e1916">💡 4. High/Low Budget Accessibility</h3>
+    <p style="margin:0;font-size:.9rem;color:#5c534c">You do not need custom millwork in every room. Our guides highlight where to invest (anchor sofas, lighting, solid wood tables) and where to save (throw pillows, Peel-and-Stick moulding, vintage vessels).</p>
+  </div>
+</div>
+
+<h2 id="3-meet-our-editorial-styling-contributors-4">3. Meet Our Editorial &amp; Styling Contributors</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:18px 0 24px">
+  <div style="background:#ffffff;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <strong style="color:#b85428;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em">Founder &amp; Lead Stylist</strong>
+    <h3 style="margin:4px 0 8px;font-size:1.06rem">Claire Vance</h3>
+    <p style="margin:0;font-size:.89rem;color:#5c534c">B.F.A. in Interior Design. Specializes in cozy living room space planning, warm minimalist bedrooms, and organic modern furniture curation.</p>
+  </div>
+  <div style="background:#ffffff;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <strong style="color:#b85428;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em">Senior Bath &amp; Architectural Editor</strong>
+    <h3 style="margin:4px 0 8px;font-size:1.06rem">Marcus Sterling</h3>
+    <p style="margin:0;font-size:.89rem;color:#5c534c">12+ years in residential remodeling and millwork. Oversees our luxury bathroom tile guides, wood plank ceiling tutorials, and lighting layout standards.</p>
+  </div>
+  <div style="background:#ffffff;border:1px solid #e4d9c8;border-bottom:3px solid #d5c7b2;border-radius:14px;padding:18px">
+    <strong style="color:#b85428;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em">Color, Textile &amp; Seasonal Editor</strong>
+    <h3 style="margin:4px 0 8px;font-size:1.06rem">Hannah Brooks</h3>
+    <p style="margin:0;font-size:.89rem;color:#5c534c">Specializes in boho bedroom layering, color theory, drapery hardware proportions, and warm holiday &amp; seasonal home styling.</p>
+  </div>
+</div>
+
+<h2 id="4-editorial-independence-advertising-disclosure-5">4. Editorial Independence &amp; Advertising Disclosure</h2>
+<p>To keep all 234+ room guides and 4,000+ high-resolution interior photos 100% free for readers without paywalls or subscription fees, <code>dreamhomedecor.net</code> is supported by programmatic display advertising (including <strong>Google AdSense</strong>). Our editorial recommendations, paint color picks, and layout tips are written independently by our design team—brands cannot pay to alter our design critiques or styling tutorials. For full details, please read our <a href="/disclaimer/">Disclaimer</a> and <a href="/privacy-policy/">Privacy Policy</a>.</p>
+
+<h2 id="5-contact-our-studio-6">5. Contact Our Studio</h2>
+<p>We love hearing from readers! Whether you want to share a room makeover, ask a layout question, or inquire about press and partnerships, reach our editorial desk anytime via our <a href="/contact/">Contact Us</a> page.</p></div>
                 </article>
                 <aside class="sidebar">
           <div class="widget">
@@ -399,13 +446,16 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul>
       </div>
       <div>
-        <h4>Legal &amp; Editorial</h4>
+        <h4>Legal &amp; Privacy Compliance</h4>
         <ul>
-          <li><a href="/about-us/">About Us &amp; Editorial Team</a></li>
+          <li><a href="/about-us/">About Us &amp; Editorial Studio</a></li>
           <li><a href="/contact/">Contact Us</a></li>
           <li><a href="/privacy-policy/">Privacy Policy</a></li>
-          <li><a href="/disclaimer/">Disclaimer</a></li>
+          <li><a href="/gdpr/">GDPR &amp; CCPA Privacy Rights</a></li>
+          <li><a href="/cookie-policy/">Cookie Policy</a></li>
           <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
+          <li><a href="/disclaimer/">Disclaimer &amp; FTC Disclosure</a></li>
+          <li><a href="/dmca-policy/">DMCA Copyright Policy</a></li>
           <li><a href="/sitemap.xml">XML Sitemap</a></li>
         </ul>
       </div>
