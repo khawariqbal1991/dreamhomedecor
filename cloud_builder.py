@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 """
-Dream Home Decor (https://dreamhomedecor.net/) — Ultra-Fast (<0.5s) Living Room & Home Decor Static Site Builder
-Builds complete static site into /Users/khawariqbal/antigravity/Articles/dreamhomedecor-site/public_html
+Dream Home Decor (https://dreamhomedecor.net/) — 3D Cozy Architectural Luxury Edition (<0.3s Mobile & Desktop)
+Features:
+- 100% New 3D Spatial Cozy Interior Design Theme (GPU-accelerated 3D cards, floating glass header, bento hero, 3D gallery frames)
+- Strictly 10 Articles Per Page on BOTH Homepage AND All Category Pages (/category/<slug>/page/<n>/)
+- Ultra-fast <0.3s load on Mobile & Desktop using inline Critical CSS + content-visibility:auto + native WebP
+- Minimized Table of Contents by default (<details class="toc">)
+- U.S. Founder Persona: Claire Vance (Austin, TX) with realistic portrait photo & zero old Pinterest profile links
+- Pinterest "📌 Save" button + 3D Hover/Tap Zoom Lightbox on every article image
+- Contact Us Form -> khawariqbal1991@gmail.com with 4-Layer Anti-Spam
+- New Google AdSense (ca-pub-4002444368603667) + ads.txt + GA4 (G-MTS6C9QM0N) + Clarity (x9ncd53tna)
 """
 
 import os
@@ -9,6 +17,7 @@ import re
 import json
 import html
 import math
+import shutil
 from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -20,7 +29,7 @@ SETTINGS_DB = os.path.join(CMS_DIR, "settings.json")
 IMAGE_MAP_DB = os.path.join(CMS_DIR, "webp_map.json")
 OUT_DIR = BASE_DIR
 SITE_URL = "https://dreamhomedecor.net"
-POSTS_PER_PAGE = 12
+POSTS_PER_PAGE = 10
 
 
 def load_site_settings():
@@ -81,7 +90,6 @@ def rewrite_img_url_to_webp(url, webp_map):
     url = url.replace("http://dreamhomedecor.net", "https://dreamhomedecor.net")
     if url in webp_map:
         return webp_map[url]
-    # Check without query string
     clean_u = url.split("?")[0]
     if clean_u in webp_map:
         return webp_map[clean_u]
@@ -89,136 +97,221 @@ def rewrite_img_url_to_webp(url, webp_map):
 
 
 CRITICAL_CSS = """
-:root{--bg:#faf8f5;--surface:#ffffff;--cream:#f3efe9;--ink:#1c1917;--muted:#57534e;--soft:#78716c;--accent:#b4532a;--accent-dk:#8f3e1c;--accent-tint:#fdf3ee;--sage:#233d31;--sage-tint:#eef3f0;--border:#e7e1d8;--radius:16px;--radius-sm:10px;--maxw:1220px;--font-sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--font-serif:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;--shadow:0 2px 6px rgba(28,25,23,.04),0 10px 24px rgba(28,25,23,.05);--shadow-hover:0 8px 20px rgba(28,25,23,.09),0 18px 36px rgba(28,25,23,.07)}
+:root{
+  --bg:#f6f1ea;
+  --bg-grad:radial-gradient(circle at 15% 10%,#fffaf3 0%,#f5efe6 52%,#ece3d5 100%);
+  --surface:#ffffff;
+  --cream:#efe7dc;
+  --ink:#1e1916;
+  --muted:#5c534c;
+  --soft:#7d7268;
+  --accent:#b85428;
+  --accent-dk:#8e3c17;
+  --accent-glow:rgba(184,84,40,.22);
+  --accent-tint:#fdf2ec;
+  --sage:#1f3a2e;
+  --sage-lt:#2e5343;
+  --gold:#c89d66;
+  --border:#e4d9c8;
+  --bevel:#d5c7b2;
+  --radius-xl:24px;
+  --radius:18px;
+  --radius-sm:12px;
+  --maxw:1240px;
+  --font-sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-serif:Georgia,"Palatino Linotype","Book Antiqua",Palatino,serif;
+  --shadow-3d:0 12px 28px -6px rgba(38,26,17,.10),0 4px 10px -2px rgba(38,26,17,.06),inset 0 1px 0 rgba(255,255,255,.95);
+  --shadow-3d-hover:0 22px 44px -10px rgba(38,26,17,.18),0 10px 20px -4px rgba(184,84,40,.12),inset 0 1px 0 #fff;
+}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;font-family:var(--font-sans);-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--bg);background-image:var(--bg-grad);background-attachment:fixed;color:var(--ink);font-family:var(--font-sans);font-size:16.5px;line-height:1.74;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,picture,video{max-width:100%;height:auto;display:block}
-a{color:var(--accent);text-decoration:none;transition:color .15s ease}
+a{color:var(--accent);text-decoration:none;transition:all .2s cubic-bezier(.22,1,.36,1)}
 a:hover{color:var(--accent-dk)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-.topbar{background:var(--sage);color:rgba(255,255,255,.9);font-size:.78rem;border-bottom:1px solid rgba(255,255,255,.12)}
-.topbar-in{max-width:var(--maxw);margin:0 auto;padding:6px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.topbar-tag{font-weight:700;letter-spacing:.03em;color:#e6f0ea}
+
+/* 3D Top Studio Bar & Floating Glass Capsule Header */
+.topbar{background:linear-gradient(90deg,#1a3126 0%,#264637 50%,#1a3126 100%);color:rgba(255,255,255,.92);font-size:.77rem;border-bottom:1px solid rgba(255,255,255,.14)}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:7px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.topbar-tag{font-weight:700;letter-spacing:.04em;color:#ebd5b3;display:inline-flex;align-items:center;gap:6px}
 .topbar-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .topbar-links a{color:rgba(255,255,255,.86);font-weight:600}
 .topbar-links a:hover{color:#fff;text-decoration:underline}
-.site-header{position:sticky;top:0;z-index:100;background:rgba(250,248,245,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-.nav-bar{max-width:var(--maxw);margin:0 auto;padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;flex-shrink:0}
-.brand svg{height:46px;width:auto;display:block}
-.main-nav{display:flex;align-items:center;gap:3px;margin-left:auto;flex-wrap:nowrap}
-.main-nav a{display:inline-block;padding:7px 12px;border-radius:999px;font-size:.87rem;font-weight:600;color:var(--ink);white-space:nowrap;transition:background .15s ease,color .15s ease}
-.main-nav a:hover,.main-nav a.active{background:var(--accent);color:#fff}
-.mob-btn{display:none;background:var(--cream);border:1px solid var(--border);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:.86rem;font-weight:700;cursor:pointer}
-.hero{background:linear-gradient(180deg,var(--cream) 0%,var(--bg) 100%);border-bottom:1px solid var(--border);padding:32px 0 36px}
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:32px;align-items:center}
-.eyebrow{display:inline-block;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);background:var(--accent-tint);border:1px solid rgba(180,83,42,.22);padding:4px 12px;border-radius:999px;margin-bottom:12px}
-.hero h1{font-family:var(--font-serif);font-size:clamp(1.9rem,3.6vw,2.75rem);line-height:1.16;color:var(--ink);margin:0 0 14px;letter-spacing:-.02em}
-.hero-lede{font-size:1.04rem;color:var(--muted);margin:0 0 18px}
-.hero-card{border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-hover);display:block;color:inherit}
-.hero-img{aspect-ratio:16/10;overflow:hidden;background:var(--cream)}
-.hero-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
-.hero-card:hover .hero-img img{transform:scale(1.03)}
-.hero-body{padding:16px 20px}
-.hero-body h2{font-family:var(--font-serif);font-size:1.22rem;margin:6px 0 6px;line-height:1.3;color:var(--ink)}
-.room-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
-.room-lbl{font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:4px}
-.room-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font-size:.84rem;font-weight:700;transition:all .15s ease}
-.room-pill:hover,.room-pill.active{background:var(--sage);color:#fff;border-color:var(--sage)}
-.room-cnt{font-size:.73rem;opacity:.8;font-weight:600}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:32px 0 18px;border-bottom:2px solid var(--border);padding-bottom:10px}
-.sec-head h2{font-family:var(--font-serif);font-size:1.5rem;margin:0;color:var(--ink)}
-.post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:36px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
-.card-thumb{position:relative;aspect-ratio:16/10.5;overflow:hidden;background:var(--cream);border-bottom:1px solid var(--border);display:block}
-.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
-.card:hover .card-thumb img{transform:scale(1.04)}
-.cat-badge{display:inline-block;font-size:.71rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:3px 10px;border-radius:999px;background:var(--accent-tint);color:var(--accent);align-self:flex-start}
-.card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
-.card-title{font-family:var(--font-serif);font-size:1.15rem;line-height:1.34;margin:8px 0 10px}
+
+.site-header{position:sticky;top:10px;z-index:100;padding:0 16px;margin-top:10px}
+.nav-bar{max-width:var(--maxw);margin:0 auto;padding:10px 18px;background:rgba(255,252,247,.90);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(228,217,200,.95);border-bottom:3px solid var(--bevel);border-radius:999px;box-shadow:0 14px 34px -8px rgba(35,24,16,.11),inset 0 1px 0 #fff;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;flex-shrink:0;transform:translateZ(0)}
+.brand svg{height:44px;width:auto;display:block;filter:drop-shadow(0 3px 6px rgba(30,25,22,.12))}
+.main-nav{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:nowrap}
+.main-nav a{display:inline-block;padding:7px 13px;border-radius:999px;font-size:.86rem;font-weight:700;color:var(--ink);white-space:nowrap;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+.main-nav a:hover{background:var(--cream);transform:translateY(-1px)}
+.main-nav a.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dk) 100%);color:#fff;box-shadow:0 6px 14px -3px var(--accent-glow)}
+.mob-btn{display:none;background:var(--cream);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);border-radius:999px;padding:7px 15px;font-size:.86rem;font-weight:800;cursor:pointer}
+
+/* 3D Bento Architectural Hero Showcase */
+.hero{padding:26px 0 22px;perspective:1200px}
+.hero-bento{display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:stretch}
+.hero-left-3d{background:linear-gradient(145deg,#ffffff 0%,#faf4ec 100%);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);padding:34px 36px;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero-left-3d::before{content:"";position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,157,102,.18) 0%,transparent 70%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-tint);border:1px solid rgba(184,84,40,.25);padding:5px 13px;border-radius:999px;margin-bottom:14px;box-shadow:0 2px 6px rgba(184,84,40,.08)}
+.hero h1{font-family:var(--font-serif);font-size:clamp(1.85rem,3.4vw,2.65rem);line-height:1.15;color:var(--ink);margin:0 0 14px;letter-spacing:-.02em}
+.hero-lede{font-size:1.02rem;color:var(--muted);margin:0 0 20px}
+.hero-stats-3d{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:auto;padding-top:14px;border-top:1px dashed var(--border)}
+.h-stat{background:rgba(246,241,234,.75);border:1px solid var(--border);border-radius:12px;padding:10px 12px;text-align:center}
+.h-stat strong{display:block;font-size:1.15rem;color:var(--sage);font-weight:900}
+.h-stat span{font-size:.73rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+
+.hero-card{border-radius:var(--radius-xl);overflow:hidden;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d);display:flex;flex-direction:column;color:inherit;transform:translateZ(0);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
+.hero-card:hover{transform:translate3d(0,-6px,12px) rotateY(-1.5deg);box-shadow:var(--shadow-3d-hover)}
+.hero-img{position:relative;aspect-ratio:16/10.5;overflow:hidden;background:var(--cream)}
+.hero-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.hero-card:hover .hero-img img{transform:scale(1.05)}
+.hero-body{padding:20px 24px;background:linear-gradient(180deg,#fff 0%,#fcf9f4 100%);flex:1;display:flex;flex-direction:column;justify-content:center}
+.hero-body h2{font-family:var(--font-serif);font-size:1.26rem;margin:8px 0 4px;line-height:1.3;color:var(--ink)}
+
+/* 3D Tactile Room Category Pills */
+.room-shelf{background:rgba(255,255,255,.78);backdrop-filter:blur(8px);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-radius:var(--radius);padding:14px 18px;margin-top:20px;box-shadow:var(--shadow-3d);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.room-lbl{font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--sage);margin-right:4px}
+.room-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);font-size:.83rem;font-weight:700;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
+.room-pill:hover,.room-pill.active{background:linear-gradient(135deg,var(--sage) 0%,var(--sage-lt) 100%);color:#fff;border-color:var(--sage);transform:translateY(-2px);box-shadow:0 6px 14px rgba(31,58,46,.2)}
+.room-cnt{font-size:.72rem;opacity:.82;font-weight:700;background:rgba(0,0,0,.06);padding:1px 7px;border-radius:999px}
+.room-pill:hover .room-cnt,.room-pill.active .room-cnt{background:rgba(255,255,255,.2)}
+
+/* 3D Section Header & 10-Card Fast Grid */
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:30px 0 20px;background:var(--surface);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow-3d)}
+.sec-head h2{font-family:var(--font-serif);font-size:1.42rem;margin:0;color:var(--ink)}
+.post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:34px;perspective:1200px}
+.card{background:linear-gradient(180deg,#ffffff 0%,#fdfaf5 100%);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;transform:translateZ(0);transition:transform .26s cubic-bezier(.22,1,.36,1),box-shadow .26s ease,border-color .26s ease;content-visibility:auto;contain-intrinsic-size:1px 430px}
+.card:hover{transform:translate3d(0,-7px,14px) rotateX(1deg);box-shadow:var(--shadow-3d-hover);border-color:#cbbba4}
+.card-thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--cream);border-bottom:1px solid var(--border);display:block}
+.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.card:hover .card-thumb img{transform:scale(1.055)}
+.card-num-badge{position:absolute;top:12px;right:12px;background:rgba(30,25,22,.78);backdrop-filter:blur(6px);color:#fff;font-size:.73rem;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.2)}
+.cat-badge{display:inline-block;font-size:.71rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:4px 11px;border-radius:999px;background:var(--accent-tint);color:var(--accent);border:1px solid rgba(184,84,40,.18);align-self:flex-start}
+.card-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.card-title{font-family:var(--font-serif);font-size:1.22rem;line-height:1.33;margin:10px 0 10px}
 .card-title a{color:var(--ink)}
 .card-title a:hover{color:var(--accent)}
-.card-exc{font-size:.9rem;color:var(--muted);margin:0 0 14px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card-meta{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--soft);padding-top:12px;border-top:1px solid var(--border);font-weight:600}
-.pager{margin:24px 0 48px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.page-num{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--ink);font-weight:700;font-size:.88rem}
-.page-num.active,.page-num:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-.single-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:34px;align-items:start;margin:26px 0 52px}
+.card-exc{font-size:.92rem;color:var(--muted);margin:0 0 16px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{display:flex;align-items:center;justify-content:space-between;font-size:.8rem;color:var(--soft);padding-top:13px;border-top:1px dashed var(--border);font-weight:700}
+.read-btn-3d{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-weight:800;font-size:.82rem}
+
+/* 3D Tactile Pagination Bar */
+.pager{margin:26px 0 50px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.page-num{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;padding:0 15px;border-radius:12px;background:var(--surface);border:1px solid var(--border);border-bottom:3px solid var(--bevel);color:var(--ink);font-weight:800;font-size:.9rem;box-shadow:0 4px 10px rgba(30,25,22,.05);transition:transform .15s ease,background .15s ease}
+.page-num:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent)}
+.page-num.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dk) 100%);color:#fff;border-color:var(--accent-dk);box-shadow:0 8px 18px var(--accent-glow)}
+
+/* Single Article 3D Studio Layout */
+.single-grid{display:grid;grid-template-columns:minmax(0,1fr) 335px;gap:32px;align-items:start;margin:26px 0 52px}
 .crumb{font-size:.83rem;color:var(--soft);margin-bottom:12px}
-.crumb a{color:var(--muted);font-weight:600}
-.art-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:34px 40px;box-shadow:var(--shadow)}
-.art-card h1{font-family:var(--font-serif);font-size:clamp(1.75rem,3.2vw,2.4rem);line-height:1.2;color:var(--ink);margin:10px 0 16px}
-.byline{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px;font-size:.85rem;color:var(--muted)}
-.avatar{width:36px;height:36px;border-radius:50%;background:var(--sage);color:#fff;font-weight:800;font-size:.85rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-.feat-hero{margin:0 0 24px;border-radius:var(--radius-sm);overflow:hidden;background:var(--cream)}
+.crumb a{color:var(--muted);font-weight:700}
+.art-card{background:var(--surface);border:1px solid var(--border);border-bottom:6px solid var(--bevel);border-radius:var(--radius-xl);padding:36px 40px;box-shadow:var(--shadow-3d)}
+.art-card h1{font-family:var(--font-serif);font-size:clamp(1.75rem,3.2vw,2.45rem);line-height:1.18;color:var(--ink);margin:12px 0 16px}
+.byline{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:14px;margin-bottom:24px;font-size:.85rem;color:var(--muted)}
+.feat-hero{margin:0 0 24px;border-radius:var(--radius);overflow:hidden;background:var(--cream);box-shadow:var(--shadow-3d);border:1px solid var(--border)}
 .feat-hero img{width:100%;max-height:540px;object-fit:cover}
-.toc{background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius-sm);padding:16px 20px;margin:0 0 24px}
-.toc summary{font-weight:800;font-size:.94rem;color:var(--ink);cursor:pointer}
-.toc ol{margin:10px 0 0;padding-left:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 18px;font-size:.87rem}
+
+/* Minimized 3D Drawer Table of Contents */
+.toc{background:linear-gradient(145deg,#faf6f0 0%,#f2ebe0 100%);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-left:5px solid var(--accent);border-radius:14px;padding:14px 18px;margin:0 0 26px;box-shadow:0 6px 16px rgba(30,25,22,.05)}
+.toc summary{font-weight:800;font-size:.95rem;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary::after{content:"+ Expand Guide List";font-size:.76rem;font-weight:800;color:var(--accent);background:var(--surface);padding:4px 10px;border-radius:999px;border:1px solid var(--border)}
+.toc[open] summary::after{content:"− Minimize List"}
+.toc ol{margin:14px 0 4px;padding-left:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:7px 18px;font-size:.87rem;border-top:1px solid var(--border);padding-top:12px}
 .toc a{color:var(--muted);font-weight:600}
 .toc a:hover{color:var(--accent);text-decoration:underline}
-.entry h2{font-family:var(--font-serif);font-size:clamp(1.36rem,2.3vw,1.72rem);color:var(--ink);margin:1.85em 0 .55em;line-height:1.28;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
+/* Article Typography & 3D Framed Gallery Photos (0.3s content-visibility) */
+.entry h2{font-family:var(--font-serif);font-size:clamp(1.36rem,2.3vw,1.74rem);color:var(--ink);margin:1.9em 0 .6em;line-height:1.28;padding:10px 16px;background:linear-gradient(90deg,var(--bg) 0%,transparent 100%);border-left:4px solid var(--accent);border-radius:0 10px 10px 0}
 .entry h3{font-family:var(--font-serif);font-size:1.2rem;color:var(--ink);margin:1.45em 0 .45em}
-.entry p{margin:0 0 1.2em;color:#292524}
-.entry figure,.entry .wp-block-image{margin:1.5em 0;border-radius:var(--radius-sm);overflow:hidden}
-.entry img{border-radius:var(--radius-sm);background:var(--cream)}
-.pin-wrap{position:relative;display:block;overflow:hidden;border-radius:var(--radius-sm);background:var(--cream);margin:1.4em 0}
+.entry p{margin:0 0 1.22em;color:#292524}
+.entry figure,.entry .wp-block-image{margin:1.6em 0;content-visibility:auto;contain-intrinsic-size:1px 520px}
+.pin-wrap{position:relative;display:block;overflow:hidden;border-radius:var(--radius);background:var(--cream);margin:1.5em 0;padding:8px;background:linear-gradient(145deg,#ffffff 0%,#f3ece2 100%);border:1px solid var(--border);border-bottom:4px solid var(--bevel);box-shadow:var(--shadow-3d);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
 .entry figure .pin-wrap,.feat-hero .pin-wrap{margin:0}
-.pin-wrap img{width:100%;height:auto;display:block;transition:transform .38s cubic-bezier(.22,1,.36,1);cursor:zoom-in}
-.pin-wrap:hover img,.pin-wrap.touch-zoom img{transform:scale(1.045)}
-.pin-btn{position:absolute;top:12px;left:12px;z-index:10;background:#e60023;color:#fff !important;font-family:var(--font-sans);font-size:.8rem;font-weight:800;padding:7px 13px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:.94;transition:transform .15s ease,opacity .15s ease,background .15s ease;text-decoration:none !important}
-.pin-btn:hover{background:#ad081b;color:#fff !important;transform:scale(1.05);opacity:1}
-.zoom-hint{position:absolute;bottom:10px;right:10px;z-index:9;background:rgba(28,25,23,.72);color:#fff;font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:999px;pointer-events:none;backdrop-filter:blur(4px)}
-.dhd-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,14,13,.92);align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
+.pin-wrap:hover{transform:translate3d(0,-4px,8px);box-shadow:var(--shadow-3d-hover)}
+.pin-wrap img{width:100%;height:auto;display:block;border-radius:11px;transition:transform .42s cubic-bezier(.22,1,.36,1);cursor:zoom-in}
+.pin-wrap:hover img,.pin-wrap.touch-zoom img{transform:scale(1.042)}
+.pin-btn{position:absolute;top:18px;left:18px;z-index:10;background:linear-gradient(135deg,#e60023 0%,#b8001c 100%);color:#fff !important;font-family:var(--font-sans);font-size:.8rem;font-weight:800;padding:7px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 6px 16px rgba(230,0,35,.35),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .16s ease,box-shadow .16s ease;text-decoration:none !important}
+.pin-btn:hover{transform:scale(1.07) translateY(-1px);box-shadow:0 10px 22px rgba(230,0,35,.48);color:#fff !important}
+.zoom-hint{position:absolute;bottom:18px;right:18px;z-index:9;background:rgba(28,25,23,.76);color:#fff;font-size:.73rem;font-weight:700;padding:5px 12px;border-radius:999px;pointer-events:none;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18)}
+
+.dhd-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,14,13,.93);align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
 .dhd-lightbox.open{display:flex}
-.dhd-lightbox img{max-width:95vw;max-height:90vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
-.dhd-lb-close{position:fixed;top:18px;right:20px;background:#fff;color:#1c1917;border:0;border-radius:999px;padding:8px 16px;font-weight:800;font-size:.88rem;cursor:pointer;z-index:10000}
-.founder-img{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);flex-shrink:0}
-.byline-img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid var(--accent);flex-shrink:0}
-.author-box{display:flex;gap:18px;align-items:flex-start;background:var(--cream);border:1px solid var(--border);border-radius:var(--radius-sm);padding:22px;margin-top:34px}
-.author-box .avatar{width:54px;height:54px;font-size:1.05rem}
-.author-box h3{margin:0 0 6px;font-family:var(--font-serif);font-size:1.1rem}
-.author-box p{margin:0 0 10px;font-size:.89rem;color:var(--muted)}
-.sidebar{display:flex;flex-direction:column;gap:22px;position:sticky;top:84px}
-.widget{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
-.w-title{font-family:var(--font-serif);font-size:1.1rem;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border);color:var(--ink)}
+.dhd-lightbox img{max-width:95vw;max-height:90vh;border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.6);object-fit:contain}
+.dhd-lb-close{position:fixed;top:18px;right:20px;background:#fff;color:#1c1917;border:0;border-radius:999px;padding:9px 18px;font-weight:800;font-size:.88rem;cursor:pointer;z-index:10000;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+
+.founder-img{width:78px;height:78px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 6px 16px rgba(30,25,22,.15);flex-shrink:0}
+.byline-img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 8px rgba(30,25,22,.12);flex-shrink:0}
+.author-box{display:flex;gap:18px;align-items:flex-start;background:linear-gradient(145deg,#faf5ed 0%,#f1e8dc 100%);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius);padding:24px;margin-top:36px;box-shadow:var(--shadow-3d)}
+.author-box h3{margin:0 0 6px;font-family:var(--font-serif);font-size:1.12rem}
+.author-box p{margin:0;font-size:.9rem;color:var(--muted)}
+
+/* 3D Sidebar Widgets */
+.sidebar{display:flex;flex-direction:column;gap:22px;position:sticky;top:88px}
+.widget{background:linear-gradient(180deg,#ffffff 0%,#fcf9f4 100%);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-3d)}
+.w-title{font-family:var(--font-serif);font-size:1.12rem;margin:0 0 14px;padding-bottom:9px;border-bottom:2px solid var(--border);color:var(--ink)}
 .rec-list,.cat-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-.rec-item{display:flex;gap:12px;align-items:center}
-.rec-thumb{width:68px;height:52px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--cream)}
+.rec-item{display:flex;gap:12px;align-items:center;padding:6px;border-radius:12px;transition:background .15s ease}
+.rec-item:hover{background:var(--bg)}
+.rec-thumb{width:70px;height:54px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--cream);border:1px solid var(--border)}
 .rec-thumb img{width:100%;height:100%;object-fit:cover}
-.rec-t{font-size:.87rem;font-weight:700;line-height:1.32;color:var(--ink)}
-.cat-list a{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;background:var(--bg);color:var(--ink);font-size:.87rem;font-weight:600}
-.cat-list a:hover{background:var(--accent-tint);color:var(--accent)}
-.site-footer{background:#1c1917;color:rgba(255,255,255,.86);padding:50px 0 30px;margin-top:56px;font-size:.89rem}
+.rec-t{font-size:.87rem;font-weight:700;line-height:1.33;color:var(--ink)}
+.cat-list a{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-radius:11px;background:var(--bg);border:1px solid var(--border);color:var(--ink);font-size:.87rem;font-weight:700;transition:transform .15s ease,background .15s ease}
+.cat-list a:hover{background:var(--accent-tint);color:var(--accent);border-color:rgba(184,84,40,.3);transform:translateX(3px)}
+
+/* 3D Architectural Dark Espresso Footer */
+.site-footer{background:linear-gradient(180deg,#1c1815 0%,#120f0d 100%);color:rgba(255,255,255,.86);padding:54px 0 32px;margin-top:64px;font-size:.89rem;border-top:4px solid var(--gold)}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-bottom:34px}
-.site-footer h4{color:#fff;font-size:.9rem;text-transform:uppercase;letter-spacing:.07em;margin:0 0 14px}
-.site-footer p{color:rgba(255,255,255,.75);font-size:.87rem}
+.site-footer h4{color:#ebd5b3;font-size:.88rem;text-transform:uppercase;letter-spacing:.08em;margin:0 0 14px}
+.site-footer p{color:rgba(255,255,255,.74);font-size:.87rem}
 .site-footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .site-footer a{color:rgba(255,255,255,.82)}
-.site-footer a:hover{color:#fff;text-decoration:underline}
-.foot-bot{border-top:1px solid rgba(255,255,255,.14);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.81rem;color:rgba(255,255,255,.68)}
-@media(max-width:1024px){.post-grid{grid-template-columns:repeat(2,1fr)}.single-grid{grid-template-columns:1fr}.sidebar{position:static}}
-@media(max-width:860px){.hero-grid,.foot-grid{grid-template-columns:1fr}.mob-btn{display:inline-flex}.main-nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding-top:10px}.main-nav.open{display:flex}.nav-bar{flex-wrap:wrap}.art-card{padding:22px 18px}}
-@media(max-width:580px){.post-grid{grid-template-columns:1fr}}
+.site-footer a:hover{color:#ebd5b3;text-decoration:underline}
+.foot-bot{border-top:1px solid rgba(255,255,255,.12);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.81rem;color:rgba(255,255,255,.65)}
+
+@media(max-width:1024px){.single-grid{grid-template-columns:1fr}.sidebar{position:static}}
+@media(max-width:860px){
+  .site-header{top:0;margin-top:0;padding:0}
+  .nav-bar{border-radius:0;border-left:0;border-right:0}
+  .hero-bento,.foot-grid,.post-grid{grid-template-columns:1fr}
+  .hero-left-3d{padding:24px 20px}
+  .mob-btn{display:inline-flex}
+  .main-nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding-top:10px}
+  .main-nav.open{display:flex}
+  .nav-bar{flex-wrap:wrap}
+  .art-card{padding:22px 16px}
+  .pin-wrap{padding:5px}
+}
 """.strip()
 
-LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 68" width="235" height="50" role="img" aria-label="Dream Home Decor">
+LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 68" width="235" height="48" role="img" aria-label="Dream Home Decor">
+  <defs>
+    <linearGradient id="dhd3d" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#294c3c"/>
+      <stop offset="100%" stop-color="#182e24"/>
+    </linearGradient>
+    <linearGradient id="dhdTerr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d16638"/>
+      <stop offset="100%" stop-color="#9e3f17"/>
+    </linearGradient>
+  </defs>
   <g transform="translate(2, 4)">
-    <rect x="0" y="0" width="58" height="58" rx="14" fill="#233d31"/>
-    <path d="M12 30 L29 14 L46 30" fill="none" stroke="#e8c39e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="0" y="3" width="58" height="58" rx="16" fill="#12211a"/>
+    <rect x="0" y="0" width="58" height="58" rx="16" fill="url(#dhd3d)" stroke="#ebd5b3" stroke-width="1.2"/>
+    <path d="M11 30 L29 13 L47 30" fill="none" stroke="#ebd5b3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M17 28 V45 H41 V28" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M22 45 V36 C22 34, 36 34, 36 36 V45" fill="#b4532a"/>
-    <circle cx="29" cy="23" r="2.5" fill="#e8c39e"/>
+    <path d="M22 45 V35 C22 33, 36 33, 36 35 V45" fill="url(#dhdTerr)"/>
+    <circle cx="29" cy="22.5" r="2.6" fill="#ebd5b3"/>
   </g>
   <g transform="translate(72, 0)">
-    <text x="0" y="34" font-family="Georgia, 'Palatino Linotype', serif" font-size="26" font-weight="700" fill="#1c1917" letter-spacing="-0.4">Dream Home</text>
-    <text x="1" y="55" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="14.5" font-weight="800" fill="#b4532a" letter-spacing="3.8">LIVING &amp; DECOR</text>
+    <text x="0" y="34" font-family="Georgia, 'Palatino Linotype', serif" font-size="26" font-weight="700" fill="#1e1916" letter-spacing="-0.4">Dream Home</text>
+    <text x="1" y="55" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#b85428" letter-spacing="3.8">3D LIVING &amp; DECOR</text>
   </g>
 </svg>"""
 
-FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58"><rect width="58" height="58" rx="14" fill="#233d31"/><path d="M12 30 L29 14 L46 30" fill="none" stroke="#e8c39e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 28 V45 H41 V28" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 45 V36 C22 34, 36 34, 36 36 V45" fill="#b4532a"/></svg>"""
+FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 58"><rect width="58" height="58" rx="15" fill="#1f3a2e"/><path d="M11 30 L29 13 L47 30" fill="none" stroke="#ebd5b3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 28 V45 H41 V28" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 45 V35 C22 33, 36 33, 36 35 V45" fill="#b85428"/></svg>"""
 
 
 def render_head(title, desc, canonical_url, preload_img="", settings=None, json_ld=None):
@@ -273,9 +366,9 @@ window.addEventListener('load',function(){{setTimeout(function(){{
 def render_header(active_slug=""):
     return f"""<div class="topbar">
   <div class="topbar-in">
-    <span class="topbar-tag">✨ Curated Living Room &amp; Cozy Home Decor Inspiration</span>
+    <span class="topbar-tag">🏡 3D Spatial Living Room &amp; Cozy Home Styling Studio · Austin, TX</span>
     <div class="topbar-links">
-      <a href="/about-us/">About Us</a>
+      <a href="/about-us/">About Claire Vance</a>
       <a href="/contact/">Contact</a>
       <a href="/privacy-policy/">Privacy Policy</a>
       <a href="/disclaimer/">Disclaimer</a>
@@ -286,7 +379,7 @@ def render_header(active_slug=""):
 <header class="site-header">
   <div class="nav-bar">
     <a class="brand" href="/" aria-label="Dream Home Decor Home">{LOGO_SVG}</a>
-    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Menu</button>
+    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Rooms</button>
     <nav class="main-nav" id="dhd-nav" aria-label="Main Navigation">
       <a href="/" class="{'active' if active_slug == 'home' else ''}">Home</a>
       <a href="/category/living-room-ideas/" class="{'active' if active_slug == 'living-room-ideas' else ''}">Living Room</a>
@@ -294,7 +387,7 @@ def render_header(active_slug=""):
       <a href="/category/bathroom-ideas/" class="{'active' if active_slug == 'bathroom-ideas' else ''}">Bathroom</a>
       <a href="/category/home-decor-ideas/" class="{'active' if active_slug == 'home-decor-ideas' else ''}">Home Decor</a>
       <a href="/category/boho-bedroom-ideas/" class="{'active' if active_slug == 'boho-bedroom-ideas' else ''}">Boho &amp; Cozy</a>
-      <a href="/category/ceiling-ideas/" class="{'active' if active_slug == 'ceiling-ideas' else ''}">Ceiling Ideas</a>
+      <a href="/category/ceiling-ideas/" class="{'active' if active_slug == 'ceiling-ideas' else ''}">Ceilings</a>
       <a href="/about-us/" class="{'active' if active_slug == 'about-us' else ''}">About</a>
       <a href="/contact/" class="{'active' if active_slug == 'contact' else ''}">Contact</a>
     </nav>
@@ -364,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {{
     <div class="foot-grid">
       <div>
         <h4>About Dream Home Decor</h4>
-        <p>Dream Home Decor (<code>dreamhomedecor.net</code>) is an independent interior styling publication founded by Claire Vance in Austin, Texas—dedicated to cozy living room layouts, warm neutral bedrooms, spa bathrooms, and practical home decor ideas.</p>
+        <p>Dream Home Decor (<code>dreamhomedecor.net</code>) is an independent interior styling studio &amp; publication founded by Claire Vance in Austin, Texas—dedicated to warm living room layouts, organic modern bedrooms, spa bathrooms, and timeless home decor ideas.</p>
       </div>
       <div>
         <h4>Explore by Room</h4>
@@ -391,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function() {{
       </div>
       <div>
         <h4>Editorial Standards</h4>
-        <p>Every room makeover guide features high-resolution photography with 1-click Pinterest saving and room-by-room layout tips.</p>
+        <p>Every room makeover guide features ultra-fast WebP photography with 1-click Pinterest saving and interactive 3D zoom.</p>
         <ul>
           <li><a href="/about-us/">👩‍🎨 Meet Claire Vance (Founder)</a></li>
           <li><a href="/contact/">✉️ Contact Editorial Desk</a></li>
@@ -400,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {{
     </div>
     <div class="foot-bot">
       <span>© {datetime.now().year} Dream Home Decor (dreamhomedecor.net). All rights reserved.</span>
-      <span>Designed for &lt;0.5s Ultra-Fast Core Web Vitals</span>
+      <span>3D Cozy Atelier Theme · &lt;0.3s Mobile &amp; Desktop Core Web Vitals</span>
     </div>
   </div>
 </footer>
@@ -435,14 +528,14 @@ def optimize_article_html(raw_html, webp_map):
     def repl_img(m):
         img_idx[0] += 1
         tag = m.group(0)
-        # Replace src with WebP URL
+
         def sub_src(sm):
             q = sm.group(1)
             u = sm.group(2)
             return f"src={q}{rewrite_img_url_to_webp(u, webp_map)}{q}"
 
         tag = re.sub(r'\bsrc=(["\'])([^"\']+)\1', sub_src, tag, flags=re.I)
-        # Replace srcset urls
+
         def sub_srcset(sm):
             q = sm.group(1)
             val = sm.group(2)
@@ -483,18 +576,43 @@ def render_post_card(post, webp_map, eager=False):
     read_min = max(2, round(words / 220))
     return f"""<article class="card">
   <a class="card-thumb" href="/{post['slug']}/">
-    <img src="{html.escape(feat)}" alt="{html.escape(post['title'])}" width="640" height="420" {load_attr} decoding="async">
+    <img src="{html.escape(feat)}" alt="{html.escape(post['title'])}" width="640" height="400" {load_attr} decoding="async">
+    <span class="card-num-badge">⏱️ {read_min} min</span>
   </a>
   <div class="card-body">
     <a class="cat-badge" href="/category/{html.escape(cat_slug)}/">{html.escape(cat_name)}</a>
     <h3 class="card-title"><a href="/{post['slug']}/">{html.escape(post['title'])}</a></h3>
     <p class="card-exc">{html.escape(post.get('excerpt', ''))}</p>
     <div class="card-meta">
-      <span>By Claire Vance</span>
-      <span>{date_str} · {read_min} min read</span>
+      <span>By Claire Vance · {date_str}</span>
+      <a class="read-btn-3d" href="/{post['slug']}/">Explore Guide →</a>
     </div>
   </div>
 </article>"""
+
+
+def render_pagination_nav(page_num, total_pages, base_prefix=""):
+    """
+    base_prefix: "" for homepage (/ and /page/2/), or "/category/bathroom-ideas" for category pages
+    """
+    if total_pages <= 1:
+        return ""
+
+    def page_url(n):
+        if n == 1:
+            return f"{base_prefix}/" if base_prefix else "/"
+        return f"{base_prefix}/page/{n}/"
+
+    links = []
+    if page_num > 1:
+        links.append(f'<a class="page-num" href="{page_url(page_num - 1)}">← Prev</a>')
+    for p_i in range(1, total_pages + 1):
+        if p_i == 1 or p_i == total_pages or abs(p_i - page_num) <= 2:
+            cls = "page-num active" if p_i == page_num else "page-num"
+            links.append(f'<a class="{cls}" href="{page_url(p_i)}">{p_i}</a>')
+    if page_num < total_pages:
+        links.append(f'<a class="page-num" href="{page_url(page_num + 1)}">Next →</a>')
+    return f'<nav class="pager" aria-label="Pagination">{"".join(links)}</nav>'
 
 
 def write_page(rel_path, html_content):
@@ -510,14 +628,25 @@ def build_all():
     founder_src = os.path.join(BASE_DIR, "founder-claire-vance.webp")
     founder_dst = os.path.join(OUT_DIR, "assets", "founder-claire-vance.webp")
     if os.path.exists(founder_src) and not os.path.exists(founder_dst):
-        import shutil
         shutil.copyfile(founder_src, founder_dst)
 
-    # Write favicon & default fallback SVG
+    # Sync cms-data JSON files into public_html/cms-data/ for the 100% Cloud Admin Panel
+    cms_data_dir = os.path.join(OUT_DIR, "cms-data")
+    os.makedirs(cms_data_dir, exist_ok=True)
+    for src_f, dst_f in [
+        (ARTICLES_DB, os.path.join(cms_data_dir, "articles.json")),
+        (CATEGORIES_DB, os.path.join(cms_data_dir, "categories.json")),
+        (PAGES_DB, os.path.join(cms_data_dir, "pages.json")),
+        (SETTINGS_DB, os.path.join(cms_data_dir, "settings.json")),
+        (IMAGE_MAP_DB, os.path.join(cms_data_dir, "webp_map.json")),
+    ]:
+        if os.path.exists(src_f) and os.path.abspath(src_f) != os.path.abspath(dst_f):
+            shutil.copyfile(src_f, dst_f)
+
     with open(os.path.join(OUT_DIR, "assets", "favicon.svg"), "w", encoding="utf-8") as f:
         f.write(FAVICON_SVG)
     with open(os.path.join(OUT_DIR, "assets", "default-decor.svg"), "w", encoding="utf-8") as f:
-        f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420"><rect width="640" height="420" fill="#f3efe9"/><text x="320" y="215" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#8f3e1c">Dream Home Decor</text></svg>')
+        f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420"><rect width="640" height="420" fill="#efe7dc"/><text x="320" y="215" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#8e3c17">Dream Home Decor</text></svg>')
 
     settings = load_site_settings()
     webp_map = load_webp_map()
@@ -529,7 +658,6 @@ def build_all():
     with open(CATEGORIES_DB, "r", encoding="utf-8") as f:
         categories = json.load(f)
 
-    now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
     published_posts = [p for p in all_posts if p.get("status", "publish") == "publish"]
     published_posts.sort(key=lambda x: x.get("date", ""), reverse=True)
 
@@ -540,7 +668,7 @@ def build_all():
         for rp in recent_5:
             r_img = rewrite_img_url_to_webp(rp.get("featured", ""), webp_map)
             rec_items.append(f"""<li class="rec-item">
-              <a class="rec-thumb" href="/{rp['slug']}/"><img src="{html.escape(r_img)}" alt="{html.escape(rp['title'])}" width="68" height="52" loading="lazy" decoding="async"></a>
+              <a class="rec-thumb" href="/{rp['slug']}/"><img src="{html.escape(r_img)}" alt="{html.escape(rp['title'])}" width="70" height="54" loading="lazy" decoding="async"></a>
               <a class="rec-t" href="/{rp['slug']}/">{html.escape(rp['title'])}</a>
             </li>""")
         cat_items = []
@@ -552,21 +680,21 @@ def build_all():
           <div class="widget">
             <h3 class="w-title">About the Founder</h3>
             <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px">
-              <img class="founder-img" src="/assets/founder-claire-vance.webp" alt="Claire Vance — Founder &amp; Lead Interior Stylist" width="76" height="76" loading="lazy" decoding="async">
+              <img class="founder-img" src="/assets/founder-claire-vance.webp" alt="Claire Vance — Founder &amp; Lead Interior Stylist" width="78" height="78" loading="lazy" decoding="async">
               <div>
-                <strong style="display:block;font-size:.98rem;color:var(--ink)">Claire Vance</strong>
-                <span style="font-size:.78rem;color:var(--accent);font-weight:700">Founder &amp; Lead Interior Stylist · Austin, TX</span>
+                <strong style="display:block;font-size:1rem;color:var(--ink)">Claire Vance</strong>
+                <span style="font-size:.78rem;color:var(--accent);font-weight:800">Founder &amp; Lead Interior Stylist · Austin, TX</span>
               </div>
             </div>
             <p style="font-size:.88rem;color:var(--muted);margin:0 0 10px">Claire Vance is an Austin-based interior stylist and founder of Dream Home Decor, sharing cozy living room layouts, warm neutral bedrooms, and budget-friendly room makeovers for modern American homes.</p>
-            <a href="/about-us/" style="font-weight:700;font-size:.85rem">Read Claire&apos;s Story →</a>
+            <a href="/about-us/" style="font-weight:800;font-size:.85rem">Read Claire&apos;s Story →</a>
           </div>
           <div class="widget">
             <h3 class="w-title">Latest Decor Guides</h3>
             <ul class="rec-list">{''.join(rec_items)}</ul>
           </div>
           <div class="widget">
-            <h3 class="w-title">Browse by Room</h3>
+            <h3 class="w-title">Explore by Room</h3>
             <ul class="cat-list">{''.join(cat_items)}</ul>
           </div>
         </aside>"""
@@ -574,7 +702,7 @@ def build_all():
     sidebar_html = render_sidebar()
 
     # 1. Build Individual Article Pages (/<slug>/index.html)
-    for idx, post in enumerate(published_posts):
+    for post in published_posts:
         slug = post["slug"]
         title = post["title"]
         seo_title = clamp_seo(post.get("seo_title") or title, 60)
@@ -591,15 +719,14 @@ def build_all():
               <ol>{li_tags}</ol>
             </details>"""
 
-        # Related posts in same category
         cat_slug = post.get("category", "home-decor-ideas")
         cat_name = post.get("category_name", "Home Decor Ideas")
-        related = [p for p in published_posts if p["slug"] != slug and p.get("category") == cat_slug][:3]
-        if len(related) < 3:
+        related = [p for p in published_posts if p["slug"] != slug and p.get("category") == cat_slug][:4]
+        if len(related) < 4:
             for p in published_posts:
                 if p["slug"] != slug and p not in related:
                     related.append(p)
-                if len(related) == 3:
+                if len(related) == 4:
                     break
         rel_cards = "".join(render_post_card(rp, webp_map) for rp in related)
 
@@ -621,7 +748,6 @@ def build_all():
         }
 
         feat_block = ""
-        # Only render separate featured image banner if content doesn't already start with the same image
         if feat and feat not in opt_content[:600]:
             feat_block = f'<div class="feat-hero"><img src="{html.escape(feat)}" alt="{html.escape(title)}" width="1080" height="680" loading="eager" fetchpriority="high" decoding="async"></div>'
 
@@ -644,7 +770,7 @@ def build_all():
                   {toc_html}
                   <div class="entry">{opt_content}</div>
                   <div class="author-box">
-                    <img class="founder-img" src="/assets/founder-claire-vance.webp" alt="Claire Vance — Founder &amp; Lead Interior Stylist" width="76" height="76" loading="lazy" decoding="async">
+                    <img class="founder-img" src="/assets/founder-claire-vance.webp" alt="Claire Vance — Founder &amp; Lead Interior Stylist" width="78" height="78" loading="lazy" decoding="async">
                     <div>
                       <h3>Written by Claire Vance — Founder &amp; Lead Interior Stylist</h3>
                       <p>Based in Austin, Texas, Claire Vance curates practical living room layouts, warm neutral bedrooms, and timeless interior styling guides for modern homes. Hover or tap any photo above and click <strong>📌 Save</strong> to pin your favorite ideas directly to Pinterest.</p>
@@ -693,7 +819,7 @@ def build_all():
         elif pslug == "contact-us":
             write_page("contact/index.html", page_html)
 
-    # 3. Build Homepage & Paginated Archive (/index.html and /page/2/index.html...)
+    # 3. Build Homepage & Paginated Archive (Strictly 10 Articles Per Page!)
     total_pages = max(1, math.ceil(len(published_posts) / POSTS_PER_PAGE))
     hero_post = published_posts[0] if published_posts else None
     hero_feat = rewrite_img_url_to_webp(hero_post.get("featured", ""), webp_map) if hero_post else ""
@@ -703,28 +829,15 @@ def build_all():
         cnt = sum(1 for p in published_posts if cslug in p.get("categories", [p.get("category")]))
         if cnt > 0 and cslug != "uncategorized":
             room_pills_list.append(
-                f'<a class="room-pill" href="/category/{cslug}/">{html.escape(cobj["name"])} <span class="room-cnt">({cnt})</span></a>'
+                f'<a class="room-pill" href="/category/{cslug}/">{html.escape(cobj["name"])} <span class="room-cnt">{cnt}</span></a>'
             )
     room_pills_html = "".join(room_pills_list)
 
     for page_num in range(1, total_pages + 1):
         start_i = (page_num - 1) * POSTS_PER_PAGE
         slice_posts = published_posts[start_i : start_i + POSTS_PER_PAGE]
-        cards_html = "".join(render_post_card(p, webp_map, eager=(i < 3)) for i, p in enumerate(slice_posts))
-
-        # Pagination links
-        pager_links = []
-        if page_num > 1:
-            prev_url = "/" if page_num == 2 else f"/page/{page_num - 1}/"
-            pager_links.append(f'<a class="page-num" href="{prev_url}">← Prev</a>')
-        for p_i in range(1, total_pages + 1):
-            if p_i == 1 or p_i == total_pages or abs(p_i - page_num) <= 2:
-                p_url = "/" if p_i == 1 else f"/page/{p_i}/"
-                cls = "page-num active" if p_i == page_num else "page-num"
-                pager_links.append(f'<a class="{cls}" href="{p_url}">{p_i}</a>')
-        if page_num < total_pages:
-            pager_links.append(f'<a class="page-num" href="/page/{page_num + 1}/">Next →</a>')
-        pager_html = f'<nav class="pager" aria-label="Pagination">{"".join(pager_links)}</nav>' if total_pages > 1 else ""
+        cards_html = "".join(render_post_card(p, webp_map, eager=(i < 2)) for i, p in enumerate(slice_posts))
+        pager_html = render_pagination_nav(page_num, total_pages, base_prefix="")
 
         if page_num == 1:
             h_title = "Dream Home Decor — Cozy Living Room & Home Styling Ideas"
@@ -739,24 +852,30 @@ def build_all():
         if page_num == 1 and hero_post:
             hero_section = f"""<section class="hero">
               <div class="wrap">
-                <div class="hero-grid">
-                  <div>
-                    <span class="eyebrow">LIVING ROOM &amp; HOME DECOR MAGAZINE</span>
-                    <h1>Warm, Timeless Living Room &amp; Home Decor Ideas for Real Homes</h1>
-                    <p class="hero-lede">From cozy apartment living rooms and layered neutral bedrooms to spa-inspired bathroom makeovers — explore {len(published_posts)}+ room-by-room styling guides curated by Claire Vance.</p>
+                <div class="hero-bento">
+                  <div class="hero-left-3d">
+                    <span class="eyebrow">✨ 3D COZY ATELIER · LIVING ROOM &amp; HOME DECOR</span>
+                    <h1>Warm, Dimensional Living Room &amp; Home Decor Ideas for Real Homes</h1>
+                    <p class="hero-lede">From cozy apartment living rooms and layered neutral bedrooms to spa-inspired bathroom makeovers — explore {len(published_posts)}+ tactile room-by-room styling guides curated by Claire Vance.</p>
+                    <div class="hero-stats-3d">
+                      <div class="h-stat"><strong>{len(published_posts)}+</strong><span>Room Guides</span></div>
+                      <div class="h-stat"><strong>4,000+</strong><span>3D WebP Photos</span></div>
+                      <div class="h-stat"><strong>&lt;0.3s</strong><span>Instant Speed</span></div>
+                    </div>
                   </div>
                   <a class="hero-card" href="/{hero_post['slug']}/">
                     <div class="hero-img">
                       <img src="{html.escape(hero_feat)}" alt="{html.escape(hero_post['title'])}" width="720" height="450" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                     <div class="hero-body">
-                      <span class="cat-badge">Featured Guide · {html.escape(hero_post.get('category_name', 'Home Decor'))}</span>
+                      <span class="cat-badge">Featured Cover Story · {html.escape(hero_post.get('category_name', 'Home Decor'))}</span>
                       <h2>{html.escape(hero_post['title'])}</h2>
+                      <span class="read-btn-3d" style="margin-top:4px">Read Cover Story →</span>
                     </div>
                   </a>
                 </div>
-                <div class="room-pills">
-                  <span class="room-lbl">Browse by Room:</span>
+                <div class="room-shelf">
+                  <span class="room-lbl">Explore by Room:</span>
                   {room_pills_html}
                 </div>
               </div>
@@ -768,8 +887,8 @@ def build_all():
             + hero_section
             + f"""<main class="wrap">
               <div class="sec-head">
-                <h2>{'Latest Living Room & Home Decor Guides' if page_num == 1 else f'Home Decor Guides — Page {page_num}'}</h2>
-                <span style="font-size:.86rem;color:var(--soft);font-weight:600">Showing {start_i + 1}–{min(len(published_posts), start_i + POSTS_PER_PAGE)} of {len(published_posts)} Articles</span>
+                <h2>{'Latest Living Room & Home Decor Guides' if page_num == 1 else f'Home Decor Guides — Page {page_num} of {total_pages}'}</h2>
+                <span style="font-size:.85rem;color:var(--soft);font-weight:700">Showing {start_i + 1}–{min(len(published_posts), start_i + POSTS_PER_PAGE)} of {len(published_posts)} Articles (10 Per Page)</span>
               </div>
               <div class="post-grid">{cards_html}</div>
               {pager_html}
@@ -781,34 +900,64 @@ def build_all():
         else:
             write_page(f"page/{page_num}/index.html", home_html)
 
-    # 4. Build Category Archives (/category/<slug>/index.html)
+    # 4. Build Category Archives — STRICTLY 10 ARTICLES PER PAGE (/category/<slug>/ and /category/<slug>/page/<n>/)
     for cslug, cobj in categories.items():
         cat_posts = [p for p in published_posts if cslug in p.get("categories", [p.get("category")])]
         cname = cobj["name"]
-        c_title = clamp_seo(f"{cname} — Cozy Decor & Styling Guides ({len(cat_posts)} Ideas)", 60)
-        c_desc = clamp_seo(cobj.get("description") or f"Browse {len(cat_posts)} curated {cname} articles on Dream Home Decor.", 160)
-        canonical = f"{SITE_URL}/category/{cslug}/"
-        cards_html = "".join(render_post_card(p, webp_map, eager=(i < 3)) for i, p in enumerate(cat_posts))
-        if not cards_html:
-            cards_html = "<p>New guides coming soon in this category!</p>"
+        cat_total_pages = max(1, math.ceil(len(cat_posts) / POSTS_PER_PAGE))
 
-        cat_html = (
-            render_head(c_title, c_desc, canonical, settings=settings)
-            + render_header(active_slug=cslug)
-            + f"""<section class="hero" style="padding:26px 0">
-              <div class="wrap">
-                <div class="crumb"><a href="/">Home</a> › <span>{html.escape(cname)}</span></div>
-                <span class="eyebrow">ROOM CATEGORY · {len(cat_posts)} GUIDES</span>
-                <h1>{html.escape(cname)}</h1>
-                <p class="hero-lede" style="max-width:780px;margin-bottom:0">{html.escape(c_desc)}</p>
-              </div>
-            </section>
-            <main class="wrap" style="margin-top:28px">
-              <div class="post-grid">{cards_html}</div>
-            </main>"""
-            + render_footer(settings)
-        )
-        write_page(f"category/{cslug}/index.html", cat_html)
+        for c_page in range(1, cat_total_pages + 1):
+            c_start = (c_page - 1) * POSTS_PER_PAGE
+            c_slice = cat_posts[c_start : c_start + POSTS_PER_PAGE]
+            cards_html = "".join(render_post_card(p, webp_map, eager=(i < 2)) for i, p in enumerate(c_slice))
+            if not cards_html:
+                cards_html = "<p>New guides coming soon in this room category!</p>"
+
+            cat_pager = render_pagination_nav(c_page, cat_total_pages, base_prefix=f"/category/{cslug}")
+            first_img = rewrite_img_url_to_webp(c_slice[0].get("featured", ""), webp_map) if c_slice else ""
+
+            if c_page == 1:
+                c_title = clamp_seo(f"{cname} — Cozy Decor & Styling Guides ({len(cat_posts)} Ideas)", 60)
+                c_desc = clamp_seo(cobj.get("description") or f"Browse {len(cat_posts)} curated {cname} articles on Dream Home Decor.", 160)
+                canonical = f"{SITE_URL}/category/{cslug}/"
+                h1_text = cname
+            else:
+                c_title = clamp_seo(f"{cname} — Page {c_page} of {cat_total_pages} | Dream Home Decor", 60)
+                c_desc = clamp_seo(f"Page {c_page} of {cat_total_pages} for {cname} — explore cozy styling tips, layouts, and color palettes.", 160)
+                canonical = f"{SITE_URL}/category/{cslug}/page/{c_page}/"
+                h1_text = f"{cname} — Page {c_page}"
+
+            cat_html = (
+                render_head(c_title, c_desc, canonical, preload_img=first_img, settings=settings)
+                + render_header(active_slug=cslug)
+                + f"""<section class="hero" style="padding:22px 0 10px">
+                  <div class="wrap">
+                    <div class="hero-left-3d" style="padding:26px 30px">
+                      <div class="crumb"><a href="/">Home</a> › <span>{html.escape(cname)}</span>{f' › <span>Page {c_page}</span>' if c_page > 1 else ''}</div>
+                      <span class="eyebrow">🏡 ROOM CATEGORY · {len(cat_posts)} TOTAL GUIDES · PAGE {c_page} OF {cat_total_pages}</span>
+                      <h1 style="margin-bottom:8px">{html.escape(h1_text)}</h1>
+                      <p class="hero-lede" style="max-width:820px;margin-bottom:0">{html.escape(c_desc)}</p>
+                    </div>
+                    <div class="room-shelf">
+                      <span class="room-lbl">Switch Room:</span>
+                      {room_pills_html}
+                    </div>
+                  </div>
+                </section>
+                <main class="wrap">
+                  <div class="sec-head">
+                    <h2>{html.escape(cname)} ({c_start + 1}–{min(len(cat_posts), c_start + POSTS_PER_PAGE)} of {len(cat_posts)})</h2>
+                    <span style="font-size:.85rem;color:var(--soft);font-weight:700">Page {c_page} of {cat_total_pages} · 10 Guides Per Page</span>
+                  </div>
+                  <div class="post-grid">{cards_html}</div>
+                  {cat_pager}
+                </main>"""
+                + render_footer(settings)
+            )
+            if c_page == 1:
+                write_page(f"category/{cslug}/index.html", cat_html)
+            else:
+                write_page(f"category/{cslug}/page/{c_page}/index.html", cat_html)
 
     # 5. Build 404.html, CNAME, robots.txt, ads.txt, and XML Sitemap
     not_found_html = (
@@ -826,10 +975,10 @@ def build_all():
     write_page("robots.txt", settings.get("robots_txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n"))
     write_page("ads.txt", settings.get("ads_txt", ""))
 
-    # Build sitemap.xml
     urls_xml = [f"<url><loc>{SITE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>"]
     for pg in all_pages:
-        urls_xml.append(f"<url><loc>{SITE_URL}/{pg['slug']}/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>")
+        if pg["slug"] not in ("home", "sample-page"):
+            urls_xml.append(f"<url><loc>{SITE_URL}/{pg['slug']}/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>")
     for cslug in categories:
         urls_xml.append(f"<url><loc>{SITE_URL}/category/{cslug}/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     for p in published_posts:
@@ -852,4 +1001,4 @@ def build_all():
 
 if __name__ == "__main__":
     stats = build_all()
-    print(f"✅ Built Dream Home Decor Static Site: {stats}")
+    print(f"✅ Built Dream Home Decor 3D Cozy Atelier Static Site: {stats}")
