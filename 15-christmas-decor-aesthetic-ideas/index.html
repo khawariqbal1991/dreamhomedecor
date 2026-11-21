@@ -47,13 +47,19 @@ a{color:var(--accent);text-decoration:none}
 a:hover{color:var(--accent-dk)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
-/* Crisp Tactile 3D Header (Compact & Clean on Mobile + Desktop) */
+/* Crisp Tactile 3D Header + Direct Upfront Legal Bar (No Dropdown, Compact on Mobile) */
+.topbar{background:#1f3a2e;color:rgba(255,255,255,.92);font-size:.76rem;border-bottom:1px solid rgba(255,255,255,.14)}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:6px 20px;display:flex;align-items:center;justify-content:center}
+.topbar-links{display:flex;align-items:center;justify-content:center;gap:6px 16px;flex-wrap:wrap}
+.topbar-links a{color:#f3eadc;font-weight:700;letter-spacing:.01em;white-space:nowrap;padding:1px 4px;border-radius:4px}
+.topbar-links a:hover,.topbar-links a.active{color:#fff;background:rgba(255,255,255,.14);text-decoration:none}
+
 .site-header{position:sticky;top:0;z-index:100;background:#faf6f0;border-bottom:2px solid var(--bevel);box-shadow:0 2px 8px rgba(35,24,16,.05)}
 .nav-bar{max-width:var(--maxw);margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;flex-shrink:0}
 .brand svg{height:40px;width:auto;display:block}
-.main-nav{display:flex;align-items:center;gap:3px;margin-left:auto;flex-wrap:nowrap}
-.main-nav a{display:inline-block;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.main-nav{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:nowrap}
+.main-nav a{display:inline-block;padding:6px 13px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap}
 .main-nav a:hover{background:var(--cream)}
 .main-nav a.active{background:var(--accent);color:#fff;border-bottom:2px solid var(--accent-dk)}
 .mob-btn{display:none;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);border-radius:999px;padding:6px 13px;font-size:.82rem;font-weight:800;cursor:pointer}
@@ -127,10 +133,34 @@ a:hover{color:var(--accent-dk)}
 .toc a{color:var(--muted);font-weight:600}
 .toc a:hover{color:var(--accent);text-decoration:underline}
 
-/* Article Typography & 120fps Butter-Smooth 3D Framed Gallery Photos */
+/* Article Typography, 3D Architectural Tables, Multi-Columns & 120fps Framed Gallery Photos */
 .entry h2{font-family:var(--font-serif);font-size:clamp(1.36rem,2.3vw,1.74rem);color:var(--ink);margin:1.9em 0 .6em;line-height:1.28;padding:10px 16px;background:var(--bg);border:1px solid var(--border);border-bottom:3px solid var(--bevel);border-left:5px solid var(--accent);border-radius:12px}
 .entry h3{font-family:var(--font-serif);font-size:1.2rem;color:var(--ink);margin:1.45em 0 .45em}
 .entry p{margin:0 0 1.22em;color:#292524}
+.entry ul,.entry ol{margin:0 0 1.35em;padding-left:22px;color:#292524}
+.entry li{margin-bottom:7px}
+.entry li::marker{color:var(--accent);font-weight:800}
+.entry hr,.entry .wp-block-separator{border:0;height:2px;background:linear-gradient(90deg,transparent,var(--bevel),transparent);margin:2.2em 0}
+.entry .wp-block-columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:1.6em 0;align-items:start}
+.entry .wp-block-column{min-width:0}
+.entry .wp-block-column figure{margin:0}
+
+/* 3D Cozy Architectural Comparison & Reference Tables */
+.entry .wp-block-table,.entry .table-3d-wrap{margin:1.75em 0;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d)}
+.entry table{width:100%;border-collapse:collapse;font-size:.91rem;line-height:1.5;background:var(--surface);text-align:left;min-width:520px}
+.entry table thead tr{background:linear-gradient(135deg,#1f3a2e 0%,#152920 100%);color:#fff}
+.entry table thead th,.entry table thead td{padding:13px 16px;font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#fff;border-bottom:3px solid var(--gold);border-right:1px solid rgba(255,255,255,.12);white-space:nowrap}
+.entry table thead th:last-child,.entry table thead td:last-child{border-right:none}
+.entry table thead strong{color:#f5e3c6;font-weight:800}
+.entry table tbody td{padding:12px 16px;border-bottom:1px solid var(--border);border-right:1px solid rgba(228,217,200,.6);color:var(--ink);vertical-align:middle}
+.entry table tbody td:last-child{border-right:none}
+.entry table tbody tr:nth-child(even) td{background:#faf6f0}
+.entry table tbody tr:hover td{background:#f2e9dc}
+.entry table tbody td:first-child{font-weight:700;color:#1e1916;background:rgba(239,231,220,.32)}
+.entry table tbody tr:nth-child(even) td:first-child{background:#f5ede1}
+.entry table tbody tr:hover td:first-child{background:#ebdcc8}
+.entry table tbody tr:last-child td{border-bottom:none}
+
 .entry figure,.entry .wp-block-image{margin:1.5em 0}
 .pin-wrap{position:relative;display:block;overflow:hidden;border-radius:var(--radius);margin:1.4em 0;padding:7px;background:#faf6f0;border:1px solid var(--border);border-bottom:4px solid var(--bevel)}
 .entry figure .pin-wrap,.feat-hero .pin-wrap{margin:0}
@@ -185,8 +215,10 @@ a:hover{color:var(--accent-dk)}
 @media(max-width:860px){
   .hero-bento,.foot-grid,.post-grid{grid-template-columns:1fr}
   .hero-left-3d{padding:20px 18px}
-  .nav-bar{padding:7px 14px;flex-wrap:wrap;gap:6px}
-  .brand svg{height:34px}
+  .topbar-in{padding:4px 10px}
+  .topbar-links{gap:2px 9px;font-size:.7rem;line-height:1.35}
+  .nav-bar{padding:6px 14px;flex-wrap:wrap;gap:6px}
+  .brand svg{height:33px}
   .mob-btn{display:inline-flex}
   .main-nav{display:none;width:100%;grid-template-columns:repeat(2,1fr);gap:6px;padding:10px 0 4px;margin-top:4px;border-top:1px solid var(--border)}
   .main-nav.open{display:grid}
@@ -194,6 +226,8 @@ a:hover{color:var(--accent-dk)}
   .main-nav a.active{background:var(--accent);color:#fff;border-color:var(--accent-dk)}
   .art-card{padding:20px 15px}
   .pin-wrap{padding:5px}
+  .entry table{font-size:.84rem;min-width:460px}
+  .entry table thead th,.entry table thead td,.entry table tbody td{padding:9px 11px}
 }</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "15 Christmas Decor Aesthetic Ideas Cozy Stylish Home", "description": "Christmas decor aesthetic ideas for a cozy stylish home — Scandi hygge minimalist rustic neutral glam and boho holiday looks with warm layered festive styling.", "image": ["/assets/uploads/lucid-origin_Feature_Image_Prompt_Professional_w-7adac85d2a.webp"], "datePublished": "2026-07-22 05:11", "dateModified": "2026-07-22 05:11", "author": {"@type": "Person", "name": "Claire Vance", "url": "https://dreamhomedecor.net/about-us/"}, "publisher": {"@type": "Organization", "name": "Dream Home Decor", "url": "https://dreamhomedecor.net"}, "mainEntityOfPage": "https://dreamhomedecor.net/15-christmas-decor-aesthetic-ideas/"}</script>
 <script>
@@ -210,6 +244,20 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
 <!-- Custom Header Verification / Scripts -->
 </head>
 <body>
+<div class="topbar" role="navigation" aria-label="Legal and Editorial Pages">
+  <div class="topbar-in">
+    <div class="topbar-links">
+      <a href="/about-us/" class="">About Us</a>
+      <a href="/contact/" class="">Contact</a>
+      <a href="/privacy-policy/" class="">Privacy Policy</a>
+      <a href="/gdpr/" class="">GDPR &amp; CCPA</a>
+      <a href="/cookie-policy/" class="">Cookie Policy</a>
+      <a href="/terms-and-conditions/" class="">Terms</a>
+      <a href="/disclaimer/" class="">Disclaimer</a>
+      <a href="/dmca-policy/" class="">DMCA</a>
+    </div>
+  </div>
+</div>
 <header class="site-header">
   <div class="nav-bar">
     <a class="brand" href="/" aria-label="Dream Home Decor Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 68" width="235" height="48" role="img" aria-label="Dream Home Decor">
@@ -236,7 +284,7 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
     <text x="1" y="55" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#b85428" letter-spacing="3.8">3D LIVING &amp; DECOR</text>
   </g>
 </svg></a>
-    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Menu</button>
+    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Rooms</button>
     <nav class="main-nav" id="dhd-nav" aria-label="Main Navigation">
       <a href="/" class="">Home</a>
       <a href="/category/living-room-ideas/" class="">Living Room</a>
@@ -245,8 +293,6 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
       <a href="/category/home-decor-ideas/" class="">Home Decor</a>
       <a href="/category/boho-bedroom-ideas/" class="">Boho &amp; Cozy</a>
       <a href="/category/ceiling-ideas/" class="">Ceilings</a>
-      <a href="/about-us/" class="">About</a>
-      <a href="/contact/" class="">Contact</a>
     </nav>
   </div>
 </header>
