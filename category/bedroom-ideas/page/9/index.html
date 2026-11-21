@@ -47,40 +47,77 @@ a{color:var(--accent);text-decoration:none}
 a:hover{color:var(--accent-dk)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
-/* Crisp Tactile 3D Header + Direct Upfront Legal Bar (No Dropdown, Compact on Mobile) */
-.topbar{background:#1f3a2e;color:rgba(255,255,255,.92);font-size:.76rem;border-bottom:1px solid rgba(255,255,255,.14)}
-.topbar-in{max-width:var(--maxw);margin:0 auto;padding:6px 20px;display:flex;align-items:center;justify-content:center}
-.topbar-links{display:flex;align-items:center;justify-content:center;gap:6px 16px;flex-wrap:wrap}
+/* Crisp Tactile 3D Header + Direct Upfront Legal Bar (Matching Mobile & Desktop Mockups) */
+.topbar{position:relative;background:#183528;color:rgba(255,255,255,.94);font-size:.76rem;border-bottom:1px solid rgba(255,255,255,.12);overflow:hidden}
+.topbar-wave{position:absolute;left:0;bottom:-1px;width:360px;height:38px;pointer-events:none;z-index:1}
+.topbar-in{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:7px 20px;display:flex;align-items:center;justify-content:flex-end}
+.topbar-links{display:flex;align-items:center;justify-content:flex-end;gap:4px 8px;flex-wrap:wrap}
+.tb-row{display:inline-flex;align-items:center;gap:8px}
+.tb-sep{color:rgba(255,255,255,.35);font-weight:400;user-select:none}
 .topbar-links a{color:#f3eadc;font-weight:700;letter-spacing:.01em;white-space:nowrap;padding:1px 4px;border-radius:4px}
-.topbar-links a:hover,.topbar-links a.active{color:#fff;background:rgba(255,255,255,.14);text-decoration:none}
+.topbar-links a:hover,.topbar-links a.active{color:#fff;background:rgba(255,255,255,.15);text-decoration:none}
 
-.site-header{position:sticky;top:0;z-index:100;background:#faf6f0;border-bottom:2px solid var(--bevel);box-shadow:0 2px 8px rgba(35,24,16,.05)}
-.nav-bar{max-width:var(--maxw);margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;flex-shrink:0}
-.brand svg{height:40px;width:auto;display:block}
+.site-header{position:sticky;top:0;z-index:100;background:#fbf8f3;border-bottom:2px solid var(--bevel);box-shadow:0 3px 10px rgba(35,24,16,.05)}
+.nav-bar{max-width:var(--maxw);margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;flex-shrink:0}
+.brand svg{height:44px;width:auto;display:block}
 .main-nav{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:nowrap}
-.main-nav a{display:inline-block;padding:6px 13px;border-radius:999px;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.main-nav a{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;font-size:.84rem;font-weight:700;color:#1e1916;white-space:nowrap}
+.main-nav a svg{width:16px;height:16px;flex-shrink:0;color:#2b473a}
 .main-nav a:hover{background:var(--cream)}
-.main-nav a.active{background:var(--accent);color:#fff;border-bottom:2px solid var(--accent-dk)}
-.mob-btn{display:none;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:var(--ink);border-radius:999px;padding:6px 13px;font-size:.82rem;font-weight:800;cursor:pointer}
+.main-nav a.active{background:#183528;color:#fff;box-shadow:0 3px 8px rgba(24,53,40,.22)}
+.main-nav a.active svg{color:#fff}
+.nav-search-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);border-bottom:2px solid var(--bevel);color:#183528;cursor:pointer;margin-left:4px;flex-shrink:0}
+.nav-search-btn:hover{background:var(--cream);color:var(--accent)}
+.mob-btn{display:none;align-items:center;gap:7px;background:#ffffff;border:1.5px solid #dfd5c5;border-bottom:3px solid #cfc2ae;color:#183528;border-radius:999px;padding:7px 16px;font-size:.88rem;font-weight:800;cursor:pointer;box-shadow:0 2px 6px rgba(30,25,20,.05)}
 
-/* Tactile 3D Bento Hero Showcase (Zero Scroll Lag) */
-.hero{padding:24px 0 20px}
-.hero-bento{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
-.hero-left-3d{background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:var(--radius-xl);padding:32px 34px;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;justify-content:center}
-.eyebrow{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-tint);border:1px solid rgba(184,84,40,.25);padding:5px 13px;border-radius:999px;margin-bottom:14px}
-.hero h1{font-family:var(--font-serif);font-size:clamp(1.85rem,3.4vw,2.6rem);line-height:1.15;color:var(--ink);margin:0 0 14px;letter-spacing:-.02em}
-.hero-lede{font-size:1.02rem;color:var(--muted);margin:0 0 20px}
-.hero-stats-3d{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:auto;padding-top:14px;border-top:1px dashed var(--border)}
-.h-stat{background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--bevel);border-radius:12px;padding:10px 12px;text-align:center}
-.h-stat strong{display:block;font-size:1.15rem;color:var(--sage);font-weight:900}
-.h-stat span{font-size:.73rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+/* Tactile 3D Bento Hero Showcase (Exact Desktop & Mobile Mockup Match) */
+.hero{padding:22px 0 20px}
+.hero-bento{display:grid;grid-template-columns:1.03fr .97fr;gap:22px;align-items:stretch}
+.hero-left-3d{position:relative;overflow:hidden;background:#fffdf9;border:1px solid var(--border);border-bottom:5px solid var(--bevel);border-radius:24px;padding:30px 32px;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;justify-content:center}
+.eyebrow-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;width:100%}
+.eyebrow-line{flex:1;max-width:48px;height:1px;background:#d6c7b2}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#183528;background:#f2eadf;border:1px solid #dfd2c0;padding:6px 15px;border-radius:999px}
+.eyebrow-spark{color:#d98a2b;font-size:.85rem}
+.hero h1{font-family:var(--font-serif);font-size:clamp(1.9rem,3.3vw,2.62rem);line-height:1.15;color:#172e23;margin:0 0 14px;letter-spacing:-.02em}
+.h1-for-desk{display:block;font-style:italic;color:#9e5822;margin-top:2px}
+.real-homes-hl{position:relative;display:inline-block;color:#c86428}
+.real-curve{position:absolute;left:0;bottom:-7px;width:105%;height:11px;pointer-events:none}
+.hero-lede{font-size:1rem;line-height:1.65;color:#4a433c;margin:0 0 20px}
+.hero-lede strong{color:#183528;font-weight:800}
 
-.hero-card{border-radius:var(--radius-xl);overflow:hidden;background:var(--surface);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d);display:flex;flex-direction:column;color:inherit}
-.hero-img{position:relative;aspect-ratio:16/10.5;overflow:hidden;background:var(--cream)}
-.hero-img img{width:100%;height:100%;object-fit:cover}
-.hero-body{padding:20px 24px;background:var(--surface);flex:1;display:flex;flex-direction:column;justify-content:center}
-.hero-body h2{font-family:var(--font-serif);font-size:1.26rem;margin:8px 0 4px;line-height:1.3;color:var(--ink)}
+/* Desktop Inline Stats Strip + Explore Ideas Pill CTA inside Hero Card */
+.desk-stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 0 16px;border-top:1px solid #ece3d5;margin-top:auto}
+.d-stat{display:flex;align-items:center;gap:10px;padding:0 10px;border-right:1px solid #dfd4c3}
+.d-stat:first-child{padding-left:0}
+.d-stat:last-child{border-right:none;padding-right:0}
+.d-stat-ico{width:34px;height:34px;border-radius:10px;background:#eef3ec;color:#183528;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.d-stat-ico svg{width:20px;height:20px}
+.d-stat-txt strong{display:block;font-size:1.18rem;line-height:1.1;color:#183528;font-weight:900}
+.d-stat-txt span{display:block;font-size:.66rem;color:#655c53;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.hero-cta-wrap{display:flex;justify-content:center;padding-top:4px}
+.hero-explore-btn{display:inline-flex;align-items:center;gap:8px;background:#183528;color:#fff !important;font-size:.9rem;font-weight:800;padding:11px 28px;border-radius:999px;box-shadow:0 6px 16px rgba(24,53,40,.22);border-bottom:2px solid #0e2118}
+.hero-explore-btn:hover{background:#214736;color:#fff !important}
+
+/* Mobile 3 Circular-Badge Stat Cards (Exact Mobile Mockup Match) */
+.mob-stats-grid{display:none;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 4px}
+.m-stat-card{background:#fffdf9;border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:18px;padding:14px 8px 13px;text-align:center;box-shadow:var(--shadow-3d);display:flex;flex-direction:column;align-items:center}
+.m-stat-badge{width:40px;height:40px;border-radius:50%;background:#183528;color:#fff;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;box-shadow:0 3px 8px rgba(24,53,40,.2)}
+.m-stat-badge svg{width:20px;height:20px}
+.m-stat-card strong{display:block;font-size:1.35rem;line-height:1.15;color:#183528;font-weight:900;margin-bottom:4px}
+.m-stat-card span{display:block;font-size:.7rem;line-height:1.25;color:#4a433c;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+
+/* Right Hero Column: Big Living Room Showcase Photo + Floating Featured Cover Story Card */
+.hero-right-col{display:flex;flex-direction:column;gap:14px}
+.hero-showcase-photo{border-radius:22px;overflow:hidden;background:var(--cream);border:1px solid var(--border);border-bottom:5px solid var(--bevel);box-shadow:var(--shadow-3d);aspect-ratio:16/10;position:relative}
+.hero-showcase-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-cover-card{background:#fffdf9;border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:18px;padding:14px 18px;box-shadow:var(--shadow-3d);display:flex;align-items:center;justify-content:space-between;gap:16px;color:inherit}
+.hero-cover-info{flex:1;min-width:0}
+.cover-pill{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:4px 11px;border-radius:999px;background:#f4ece0;color:#8e5120;border:1px solid #e4d3bc;margin-bottom:6px}
+.hero-cover-info h2{font-family:var(--font-serif);font-size:1.15rem;margin:0 0 6px;line-height:1.28;color:#18241d}
+.cover-read-link{display:inline-flex;align-items:center;gap:5px;color:#9e5822;font-weight:800;font-size:.83rem}
+.hero-cover-thumb{width:96px;height:76px;border-radius:12px;overflow:hidden;flex-shrink:0;border:1px solid var(--border);background:var(--cream)}
+.hero-cover-thumb img{width:100%;height:100%;object-fit:cover}
 
 /* Tactile 3D Room Category Pills */
 .room-shelf{background:var(--surface);border:1px solid var(--border);border-bottom:4px solid var(--bevel);border-radius:var(--radius);padding:14px 18px;margin-top:18px;box-shadow:var(--shadow-3d);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -214,16 +251,29 @@ a:hover{color:var(--accent-dk)}
 @media(max-width:1024px){.single-grid{grid-template-columns:1fr}.sidebar{position:static}}
 @media(max-width:860px){
   .hero-bento,.foot-grid,.post-grid{grid-template-columns:1fr}
-  .hero-left-3d{padding:20px 18px}
-  .topbar-in{padding:4px 10px}
-  .topbar-links{gap:2px 9px;font-size:.7rem;line-height:1.35}
-  .nav-bar{padding:6px 14px;flex-wrap:wrap;gap:6px}
-  .brand svg{height:33px}
+  .topbar-wave,.tb-mid-sep,.eyebrow-line,.desk-stats-bar,.hero-cta-wrap,.nav-search-btn{display:none !important}
+  .topbar-in{padding:6px 8px;justify-content:center}
+  .topbar-links{flex-direction:column;gap:2px;font-size:.72rem;line-height:1.35;width:100%}
+  .tb-row{display:flex;justify-content:center;align-items:center;gap:6px;width:100%}
+  .nav-bar{padding:8px 14px;flex-wrap:wrap;gap:6px}
+  .brand svg{height:38px}
   .mob-btn{display:inline-flex}
   .main-nav{display:none;width:100%;grid-template-columns:repeat(2,1fr);gap:6px;padding:10px 0 4px;margin-top:4px;border-top:1px solid var(--border)}
   .main-nav.open{display:grid}
-  .main-nav a{text-align:center;padding:8px 10px;font-size:.82rem;background:var(--surface);border:1px solid var(--border);border-radius:10px}
-  .main-nav a.active{background:var(--accent);color:#fff;border-color:var(--accent-dk)}
+  .main-nav a{justify-content:center;text-align:center;padding:8px 10px;font-size:.82rem;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+  .main-nav a.active{background:#183528;color:#fff;border-color:#0e2118}
+  .hero{padding:14px 0 16px}
+  .hero-left-3d{
+    padding:22px 20px 24px;
+    background:linear-gradient(90deg,#fbf8f3 50%,rgba(251,248,243,.84) 68%,rgba(251,248,243,.18) 100%),url('/assets/hero-mobile-vignette.webp') right center/cover no-repeat;
+  }
+  .eyebrow-row{justify-content:flex-start;margin-bottom:14px}
+  .eyebrow{background:#e1ebdc;border:1px solid #c5d6bd;color:#183528;font-size:.69rem;padding:6px 13px;letter-spacing:.05em}
+  .hero h1{font-size:1.95rem;line-height:1.15;color:#1c1917;max-width:92%}
+  .h1-for-desk{display:inline;font-style:normal;color:#1c1917}
+  .real-homes-hl{color:#c86428;font-style:normal}
+  .hero-lede{font-size:.94rem;color:#2c2622;max-width:78%;margin-bottom:4px}
+  .mob-stats-grid{display:grid}
   .art-card{padding:20px 15px}
   .pin-wrap{padding:5px}
   .entry table{font-size:.84rem;min-width:460px}
@@ -244,54 +294,87 @@ var s=document.createElement('script');s.async=true;s.src='https://www.googletag
 </head>
 <body>
 <div class="topbar" role="navigation" aria-label="Legal and Editorial Pages">
+  <svg class="topbar-wave" viewBox="0 0 360 38" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,10 L235,10 C285,10 310,38 360,38 L0,38 Z" fill="#fbf8f3"/>
+  </svg>
   <div class="topbar-in">
     <div class="topbar-links">
-      <a href="/about-us/" class="">About Us</a>
-      <a href="/contact/" class="">Contact</a>
-      <a href="/privacy-policy/" class="">Privacy Policy</a>
-      <a href="/gdpr/" class="">GDPR &amp; CCPA</a>
-      <a href="/cookie-policy/" class="">Cookie Policy</a>
-      <a href="/terms-and-conditions/" class="">Terms</a>
-      <a href="/disclaimer/" class="">Disclaimer</a>
-      <a href="/dmca-policy/" class="">DMCA</a>
+      <span class="tb-row">
+        <a href="/about-us/" class="">About Us</a>
+        <span class="tb-sep">|</span>
+        <a href="/contact/" class="">Contact</a>
+        <span class="tb-sep">|</span>
+        <a href="/privacy-policy/" class="">Privacy Policy</a>
+        <span class="tb-sep">|</span>
+        <a href="/gdpr/" class="">GDPR &amp; CCPA</a>
+      </span>
+      <span class="tb-sep tb-mid-sep">|</span>
+      <span class="tb-row">
+        <a href="/cookie-policy/" class="">Cookie Policy</a>
+        <span class="tb-sep">|</span>
+        <a href="/terms-and-conditions/" class="">Terms</a>
+        <span class="tb-sep">|</span>
+        <a href="/disclaimer/" class="">Disclaimer</a>
+        <span class="tb-sep">|</span>
+        <a href="/dmca-policy/" class="">DMCA</a>
+      </span>
     </div>
   </div>
 </div>
 <header class="site-header">
   <div class="nav-bar">
     <a class="brand" href="/" aria-label="Dream Home Decor Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 68" width="235" height="48" role="img" aria-label="Dream Home Decor">
-  <defs>
-    <linearGradient id="dhd3d" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#294c3c"/>
-      <stop offset="100%" stop-color="#182e24"/>
-    </linearGradient>
-    <linearGradient id="dhdTerr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#d16638"/>
-      <stop offset="100%" stop-color="#9e3f17"/>
-    </linearGradient>
-  </defs>
-  <g transform="translate(2, 4)">
-    <rect x="0" y="3" width="58" height="58" rx="16" fill="#12211a"/>
-    <rect x="0" y="0" width="58" height="58" rx="16" fill="url(#dhd3d)" stroke="#ebd5b3" stroke-width="1.2"/>
-    <path d="M11 30 L29 13 L47 30" fill="none" stroke="#ebd5b3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M17 28 V45 H41 V28" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M22 45 V35 C22 33, 36 33, 36 35 V45" fill="url(#dhdTerr)"/>
-    <circle cx="29" cy="22.5" r="2.6" fill="#ebd5b3"/>
+  <g transform="translate(2, 5)">
+    <rect x="0" y="0" width="58" height="58" rx="18" fill="#183528"/>
+    <path d="M12 29 L29 13 L46 29" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M38 16 V21" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M17 27 V44 H41 V27" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="23" y="29" width="5.2" height="5.2" rx="1" fill="#d97732"/>
+    <rect x="29.8" y="29" width="5.2" height="5.2" rx="1" fill="#d97732"/>
+    <rect x="23" y="35.8" width="5.2" height="5.2" rx="1" fill="#d97732"/>
+    <rect x="29.8" y="35.8" width="5.2" height="5.2" rx="1" fill="#d97732"/>
   </g>
   <g transform="translate(72, 0)">
-    <text x="0" y="34" font-family="Georgia, 'Palatino Linotype', serif" font-size="26" font-weight="700" fill="#1e1916" letter-spacing="-0.4">Dream Home</text>
-    <text x="1" y="55" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#b85428" letter-spacing="3.8">3D LIVING &amp; DECOR</text>
+    <text x="0" y="34" font-family="Georgia, 'Palatino Linotype', serif" font-size="26" font-weight="700" fill="#183528" letter-spacing="-0.3">Dream Home</text>
+    <text x="1" y="54" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="12.5" font-weight="900" fill="#c85a22" letter-spacing="3.2">3D LIVING &amp; DECOR</text>
   </g>
 </svg></a>
-    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">☰ Rooms</button>
+    <button class="mob-btn" type="button" onclick="document.getElementById('dhd-nav').classList.toggle('open')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Rooms
+    </button>
     <nav class="main-nav" id="dhd-nav" aria-label="Main Navigation">
-      <a href="/" class="">Home</a>
-      <a href="/category/living-room-ideas/" class="">Living Room</a>
-      <a href="/category/bedroom-ideas/" class="active">Bedroom</a>
-      <a href="/category/bathroom-ideas/" class="">Bathroom</a>
-      <a href="/category/home-decor-ideas/" class="">Home Decor</a>
-      <a href="/category/boho-bedroom-ideas/" class="">Boho &amp; Cozy</a>
-      <a href="/category/ceiling-ideas/" class="">Ceilings</a>
+      <a href="/" class="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9 20v-6h6v6"/></svg>
+        Home
+      </a>
+      <a href="/category/living-room-ideas/" class="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 11h2v5h16v-5h2v7H2z"/><path d="M5 18v2M19 18v2"/></svg>
+        Living Room
+      </a>
+      <a href="/category/bedroom-ideas/" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v11M21 11v7"/><path d="M3 14h18"/><path d="M6 14v-3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3"/></svg>
+        Bedroom
+      </a>
+      <a href="/category/bathroom-ideas/" class="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3z"/><path d="M6 12V6a2 2 0 0 1 4 0v1"/><path d="M7 19v2M17 19v2"/></svg>
+        Bathroom
+      </a>
+      <a href="/category/home-decor-ideas/" class="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><circle cx="12" cy="13.5" r="2.3"/></svg>
+        Home Decor
+      </a>
+      <a href="/category/boho-bedroom-ideas/" class="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a3 3 0 0 1 0 6h-1"/><path d="M3 8h14v7a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><path d="M7 3v2M11 3v2"/></svg>
+        Boho &amp; Cozy
+      </a>
+      <a href="/category/ceiling-ideas/" class="">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Ceilings
+      </a>
+      <button class="nav-search-btn" type="button" onclick="var el=document.getElementById('latest-guides')||document.querySelector('main');if(el)el.scrollIntoView({behavior:'smooth'})" aria-label="Explore Guides" title="Explore Guides">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.2" y2="16.2"/></svg>
+      </button>
     </nav>
   </div>
 </header>
