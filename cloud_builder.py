@@ -346,6 +346,7 @@ def render_head(title, desc, canonical_url, preload_img="", settings=None, json_
 {f'<meta property="og:image" content="{html.escape(preload_img)}">' if preload_img else ''}
 {preload_tag}<style id="dhd-critical-css">{CRITICAL_CSS}</style>
 {schema_tag}<script>
+(function(){{var h=location.hostname;if(h==='www.dreamhomedecor.net'||h.indexOf('github.io')!==-1){{var p=location.pathname.replace(/^\/dreamhomedecor(\/|$)/,'/');location.replace('https://dreamhomedecor.net'+p+location.search+location.hash);}}}})();
 window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());
 {f"gtag('config','{ga4}');" if ga4 else ""}
 window.addEventListener('load',function(){{setTimeout(function(){{
