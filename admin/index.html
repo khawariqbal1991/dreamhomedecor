@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard ‹ Dream Home Decor — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<title>Cloud Admin Dashboard ‹ Dream Home Decor</title>
 <style>
   :root {
     --wp-sidebar: #1c1917;
@@ -16,7 +17,6 @@
     --text-muted: #57534e;
     --border: #ddd6cb;
     --green: #008a20;
-    --blue: #2271b1;
   }
   * { box-sizing: border-box; }
   body {
@@ -28,7 +28,7 @@
     min-height: 100vh;
   }
   .wp-sidebar {
-    width: 230px;
+    width: 235px;
     background: var(--wp-sidebar);
     color: #f5f5f4;
     flex-shrink: 0;
@@ -72,7 +72,7 @@
     gap: 16px;
     flex-wrap: wrap;
   }
-  .wp-topbar-left { display: flex; align-items: center; gap: 12px; }
+  .wp-topbar-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .wp-topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 6px;
@@ -106,7 +106,7 @@
   }
   .filter-bar input { flex: 1; min-width: 220px; }
   .posts-table-wrap {
-    background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow-x: auto;
   }
   table.wp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   table.wp-table th, table.wp-table td {
@@ -124,10 +124,9 @@
   .seo-ok { color: #166534; }
   .seo-warn { color: #b91c1c; }
 
-  /* Modal Editor */
   .modal-backdrop {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.58);
-    z-index: 200; align-items: center; justify-content: center; padding: 20px;
+    z-index: 200; align-items: center; justify-content: center; padding: 16px;
   }
   .modal-backdrop.open { display: flex; }
   .modal-card {
@@ -143,10 +142,10 @@
   .modal-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
   .modal-foot {
     padding: 14px 22px; border-top: 1px solid var(--border); background: #faf8f5;
-    display: flex; justify-content: flex-end; gap: 10px;
+    display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;
   }
-  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 14px; }
+  .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 14px; }
   .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
   .field label { font-size: 12.5px; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; }
   .field input, .field select, .field textarea {
@@ -177,18 +176,24 @@
   }
   .login-gate.hidden { display: none; }
   .login-box {
-    background: #fff; border-radius: 16px; max-width: 400px; width: 100%;
+    background: #fff; border-radius: 16px; max-width: 410px; width: 100%;
     padding: 32px 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.45);
   }
   .login-box h2 { margin: 0 0 6px; font-size: 20px; color: #1c1917; }
+  @media (max-width: 780px) {
+    body { flex-direction: column; }
+    .wp-sidebar { width: 100%; }
+    .wp-nav { display: flex; overflow-x: auto; padding: 4px 8px; }
+    .wp-nav li a, .wp-nav li button { white-space: nowrap; padding: 8px 12px; }
+  }
 </style>
 </head>
 <body>
   <div class="login-gate" id="login-gate">
     <div class="login-box">
-      <div style="font-size:12px;font-weight:800;color:#b4532a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">DREAM HOME DECOR CMS</div>
-      <h2>Sign In to Admin Panel</h2>
-      <p style="font-size:13px;color:#57534e;margin:0 0 18px">Enter your administrator credentials to manage articles, WebP images, and AdSense settings.</p>
+      <div style="font-size:12px;font-weight:800;color:#b4532a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">DREAM HOME DECOR · 100% CLOUD CMS</div>
+      <h2>Sign In From Any Device</h2>
+      <p style="font-size:13px;color:#57534e;margin:0 0 18px">Log in from any phone, laptop, or PC anywhere in the world to publish posts &amp; auto-WebP images directly to GitHub Cloud (No Mac required).</p>
       <form onsubmit="return doAdminLogin(event)">
         <div class="field">
           <label>Username</label>
@@ -199,10 +204,11 @@
           <input type="password" id="lg-pass" placeholder="Enter password..." required>
         </div>
         <div id="lg-err" style="display:none;color:#b91c1c;font-size:12.5px;font-weight:700;margin-bottom:10px">Invalid username or password.</div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:11px">🔒 Log In to Dashboard →</button>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:11px">🔒 Log In to Cloud Dashboard →</button>
       </form>
     </div>
   </div>
+
   <aside class="wp-sidebar">
     <a class="wp-brand" href="/" target="_blank">
       <span class="dot"></span>
@@ -212,8 +218,7 @@
       <li><button class="active" onclick="filterAll()">📝 All Articles (<span id="nav-total">0</span>)</button></li>
       <li><button onclick="openEditor()">➕ Add New Article</button></li>
       <li><button onclick="openSettings()">⚙️ Header / Footer &amp; AdSense</button></li>
-      <li><button onclick="rebuildSite()">⚡ Rebuild Static Site</button></li>
-      <li><button onclick="pushGitHub()">🚀 Push to GitHub Live</button></li>
+      <li><button onclick="triggerCloudRebuild()">☁️ Trigger Cloud Rebuild</button></li>
       <li><a href="/" target="_blank">🌐 View Live Site ↗</a></li>
     </ul>
   </aside>
@@ -221,14 +226,13 @@
   <div class="wp-main">
     <header class="wp-topbar">
       <div class="wp-topbar-left">
-        <strong style="font-size:16px">Dream Home Decor — Ultra-Fast CMS &amp; GitHub Publisher</strong>
-        <span class="badge badge-pub">0.3s WebP Engine Active</span>
+        <strong style="font-size:16px">Dream Home Decor — 100% Cloud-Autonomous CMS</strong>
+        <span class="badge badge-pub">Works From Any Phone / PC · No Mac Needed</span>
       </div>
       <div class="wp-topbar-right">
         <button class="btn btn-primary" onclick="openEditor()">+ Add New Post</button>
         <button class="btn btn-outline" onclick="openSettings()">⚙️ Header / Footer / AdSense</button>
-        <button class="btn btn-outline" onclick="rebuildSite()">⚡ Rebuild Site</button>
-        <button class="btn btn-green" onclick="pushGitHub()">🚀 Push &amp; Deploy to GitHub</button>
+        <button class="btn btn-green" onclick="triggerCloudRebuild()">☁️ Sync &amp; Rebuild on GitHub Cloud</button>
         <a class="btn btn-sage" href="/" target="_blank">🌐 Open Site ↗</a>
         <button class="btn btn-outline" onclick="doAdminLogout()">🚪 Log Out</button>
       </div>
@@ -245,8 +249,8 @@
           <div class="val" id="st-cat">13</div>
         </div>
         <div class="stat-card">
-          <div class="lbl">SEO Titles ≤60 &amp; Desc ≤160</div>
-          <div class="val" style="color:var(--green)">100% Verified</div>
+          <div class="lbl">Cloud Auto-WebP Engine</div>
+          <div class="val" style="color:var(--green);font-size:18px;margin-top:8px">Browser Canvas WebP + GitHub API</div>
         </div>
         <div class="stat-card">
           <div class="lbl">AdSense &amp; Analytics Active</div>
@@ -342,8 +346,8 @@
         <div class="img-gallery-box">
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
             <div>
-              <strong>📸 Bulk Auto-WebP Image Uploader &amp; H2 Inserter</strong>
-              <div style="font-size:12px;color:var(--text-muted)">Upload JPG/PNG/WebP files — automatically converts to compressed .webp and inserts after each H2 heading!</div>
+              <strong>📸 100% Cloud Auto-WebP Image Uploader &amp; H2 Inserter</strong>
+              <div style="font-size:12px;color:var(--text-muted)">Select JPG/PNG/WebP images from ANY phone or computer — converts to compressed .webp right in your browser, uploads directly to GitHub, and inserts after each H2 heading!</div>
             </div>
             <label class="btn btn-primary" style="cursor:pointer">
               📤 Upload &amp; Auto-Convert to WebP
@@ -365,7 +369,7 @@
       </div>
       <div class="modal-foot">
         <button class="btn btn-outline" onclick="closeEditor()">Cancel</button>
-        <button class="btn btn-primary" onclick="savePost()">💾 Save &amp; Rebuild Page</button>
+        <button class="btn btn-primary" onclick="savePost()">💾 Save &amp; Publish to GitHub Cloud</button>
       </div>
     </div>
   </div>
@@ -374,7 +378,7 @@
   <div class="modal-backdrop" id="settings-modal">
     <div class="modal-card" style="max-width:760px">
       <div class="modal-head">
-        <h2>⚙️ Header, Footer, Analytics &amp; New AdSense Settings</h2>
+        <h2>⚙️ Header, Footer, Analytics &amp; AdSense Settings</h2>
         <button class="btn btn-outline" onclick="closeSettings()">✕ Close</button>
       </div>
       <div class="modal-body">
@@ -389,11 +393,11 @@
           </div>
         </div>
         <div class="field">
-          <label>New Google AdSense Head Script (Old ca-pub-7827776266303065 is removed)</label>
-          <textarea id="set-adsense" rows="4" style="font-family:monospace" placeholder="Paste your new AdSense <script async src=...></script> here when ready"></textarea>
+          <label>Google AdSense Head Tags</label>
+          <textarea id="set-adsense" rows="4" style="font-family:monospace"></textarea>
         </div>
         <div class="field">
-          <label>Custom Header Code (Google Search Console / Pinterest Verification Meta Tags)</label>
+          <label>Custom Header Code (Google Search Console Verification Meta Tags)</label>
           <textarea id="set-header" rows="3" style="font-family:monospace"></textarea>
         </div>
         <div class="field">
@@ -407,7 +411,7 @@
       </div>
       <div class="modal-foot">
         <button class="btn btn-outline" onclick="closeSettings()">Cancel</button>
-        <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings &amp; Rebuild Site</button>
+        <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings to GitHub Cloud</button>
       </div>
     </div>
   </div>
@@ -415,8 +419,23 @@
   <div class="toast" id="toast"></div>
 
 <script>
+const GH_OWNER = "khawariqbal1991";
+const GH_REPO = "dreamhomedecor";
+const ENC_VAULT = "IxoVPls9BhgtaH1EcWAjOxVXLH0qBApEYltPSysmAycoHV09DmpmXg==";
+
 let ALL_POSTS = [];
 let ALL_CATS = {};
+let SITE_SETTINGS = {};
+
+function unlockGithubToken() {
+  const pass = localStorage.getItem('dhd_admin_pass') || 'DreamHome2026!';
+  const raw = atob(ENC_VAULT);
+  let out = '';
+  for (let i = 0; i < raw.length; i++) {
+    out += String.fromCharCode(raw.charCodeAt(i) ^ pass.charCodeAt(i % pass.length));
+  }
+  return out;
+}
 
 (function checkAuth() {
   if (localStorage.getItem('dhd_admin_authed') === '1') {
@@ -430,8 +449,10 @@ function doAdminLogin(e) {
   const p = document.getElementById('lg-pass').value;
   if (u === 'admin' && p === 'DreamHome2026!') {
     localStorage.setItem('dhd_admin_authed', '1');
+    localStorage.setItem('dhd_admin_pass', p);
     document.getElementById('login-gate').classList.add('hidden');
     document.getElementById('lg-err').style.display = 'none';
+    loadData();
   } else {
     document.getElementById('lg-err').style.display = 'block';
   }
@@ -440,6 +461,7 @@ function doAdminLogin(e) {
 
 function doAdminLogout() {
   localStorage.removeItem('dhd_admin_authed');
+  localStorage.removeItem('dhd_admin_pass');
   document.getElementById('login-gate').classList.remove('hidden');
 }
 
@@ -447,28 +469,88 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3800);
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+// GitHub Contents API helper (Reads & Writes directly to GitHub Cloud from any browser!)
+async function ghPutFile(repoPath, contentBase64, commitMsg) {
+  const token = unlockGithubToken();
+  const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${repoPath}`;
+  const headers = {
+    "Authorization": `token ${token}`,
+    "Accept": "application/vnd.github+json",
+    "Content-Type": "application/json"
+  };
+  let sha = null;
+  try {
+    const getRes = await fetch(apiUrl, { headers });
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    }
+  } catch (e) {}
+
+  const body = { message: commitMsg, content: contentBase64, branch: "main" };
+  if (sha) body.sha = sha;
+  const putRes = await fetch(apiUrl, { method: "PUT", headers, body: JSON.stringify(body) });
+  if (!putRes.ok) {
+    const errTxt = await putRes.text();
+    throw new Error(`GitHub API error (${putRes.status}): ${errTxt}`);
+  }
+  return await putRes.json();
+}
+
+function utf8ToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function base64ToUtf8(b64) {
+  return decodeURIComponent(escape(atob(b64.replace(/\s/g, ''))));
+}
+
+async function fetchJsonSmart(ghPath, staticPath) {
+  // If logged in, try GitHub API first so edits show up with 0s CDN cache delay!
+  if (localStorage.getItem('dhd_admin_authed') === '1') {
+    try {
+      const token = unlockGithubToken();
+      const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${ghPath}`, {
+        headers: { "Authorization": `token ${token}`, "Accept": "application/vnd.github.v3.raw" }
+      });
+      if (res.ok) return await res.json();
+    } catch (e) {}
+  }
+  const r2 = await fetch(`${staticPath}?t=${Date.now()}`);
+  return await r2.json();
 }
 
 async function loadData() {
-  const [pRes, cRes] = await Promise.all([fetch('/api/posts'), fetch('/api/categories')]);
-  ALL_POSTS = await pRes.json();
-  ALL_CATS = await cRes.json();
-  ALL_POSTS.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  try {
+    const [posts, cats, settings] = await Promise.all([
+      fetchJsonSmart('cms-data/articles.json', '/cms-data/articles.json'),
+      fetchJsonSmart('cms-data/categories.json', '/cms-data/categories.json'),
+      fetchJsonSmart('cms-data/settings.json', '/cms-data/settings.json')
+    ]);
+    ALL_POSTS = posts;
+    ALL_CATS = cats;
+    SITE_SETTINGS = settings;
+    ALL_POSTS.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
-  document.getElementById('nav-total').textContent = ALL_POSTS.length;
-  document.getElementById('st-pub').textContent = ALL_POSTS.filter(p => p.status === 'publish').length;
-  document.getElementById('st-cat').textContent = Object.keys(ALL_CATS).length;
+    document.getElementById('nav-total').textContent = ALL_POSTS.length;
+    document.getElementById('st-pub').textContent = ALL_POSTS.filter(p => p.status === 'publish').length;
+    document.getElementById('st-cat').textContent = Object.keys(ALL_CATS).length;
 
-  const qCat = document.getElementById('q-cat');
-  const eCat = document.getElementById('edit-cat');
-  qCat.innerHTML = '<option value="">All Room Categories</option>';
-  eCat.innerHTML = '';
-  for (const [slug, obj] of Object.entries(ALL_CATS)) {
-    qCat.innerHTML += `<option value="${slug}">${obj.name}</option>`;
-    eCat.innerHTML += `<option value="${slug}">${obj.name}</option>`;
+    const qCat = document.getElementById('q-cat');
+    const eCat = document.getElementById('edit-cat');
+    qCat.innerHTML = '<option value="">All Room Categories</option>';
+    eCat.innerHTML = '';
+    for (const [slug, obj] of Object.entries(ALL_CATS)) {
+      qCat.innerHTML += `<option value="${slug}">${obj.name}</option>`;
+      eCat.innerHTML += `<option value="${slug}">${obj.name}</option>`;
+    }
+    renderTable();
+  } catch (err) {
+    console.error(err);
   }
-  renderTable();
 }
 
 function filterAll() {
@@ -537,7 +619,7 @@ function refreshArticleImageGallery() {
   const gal = document.getElementById('article-img-gallery');
   const matches = [...html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)];
   if (!matches.length) {
-    gal.innerHTML = '<div style="font-size:12px;color:var(--text-muted)">No images inside content yet. Upload above to auto-insert!</div>';
+    gal.innerHTML = '<div style="font-size:12px;color:var(--text-muted)">No images inside content yet. Upload above to auto-convert to WebP &amp; insert!</div>';
     return;
   }
   gal.innerHTML = matches.map((m, i) => `
@@ -588,32 +670,52 @@ function closeEditor() {
   document.getElementById('editor-modal').classList.remove('open');
 }
 
-function readFileAsDataURL(file) {
+// 100% Browser-Native WebP Converter using HTML5 Canvas (works on any phone, iPad, Windows, or Mac!)
+function convertFileToWebpBase64InBrowser(file, maxWidth = 960, quality = 0.80) {
   return new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => resolve(r.result);
-    r.onerror = reject;
-    r.readAsDataURL(file);
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+        if (w > maxWidth) {
+          h = Math.round((h * maxWidth) / w);
+          w = maxWidth;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const webpDataUrl = canvas.toDataURL('image/webp', quality);
+        const b64 = webpDataUrl.split(',')[1];
+        resolve(b64);
+      };
+      img.onerror = reject;
+      img.src = ev.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
   });
 }
 
 async function handleBulkImageUpload(input) {
   if (!input.files || !input.files.length) return;
   const files = Array.from(input.files).sort((a, b) => a.name.localeCompare(b.name));
-  const slug = document.getElementById('edit-slug').value.trim() || 'decor-guide';
+  const slug = (document.getElementById('edit-slug').value.trim() || 'decor-guide').replace(/[^a-z0-9\-]/gi, '-').toLowerCase();
   const title = document.getElementById('edit-title').value.trim() || 'Home Decor Idea';
 
-  showToast(`Uploading & converting ${files.length} image(s) to high-speed WebP...`);
+  showToast(`Converting ${files.length} image(s) to WebP in browser & uploading to GitHub Cloud...`);
   const uploaded = [];
-  for (const f of files) {
-    const dataUrl = await readFileAsDataURL(f);
-    const res = await fetch('/api/upload_image', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ slug, filename: f.name, data_url: dataUrl })
-    });
-    const out = await res.json();
-    if (out.ok) uploaded.push(out.url);
+  for (let i = 0; i < files.length; i++) {
+    const f = files[i];
+    const cleanName = f.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9\-_]/gi, '-').toLowerCase() || `img-${i+1}`;
+    const webpB64 = await convertFileToWebpBase64InBrowser(f, 960, 0.80);
+    const repoPath = `assets/uploads/${slug}/${cleanName}.webp`;
+    await ghPutFile(repoPath, webpB64, `Upload WebP image ${cleanName}.webp for ${slug}`);
+    uploaded.push(`/${repoPath}`);
+    showToast(`Uploaded ${i + 1} / ${files.length} WebP images to GitHub Cloud...`);
   }
   if (!uploaded.length) return;
 
@@ -642,7 +744,7 @@ async function handleBulkImageUpload(input) {
     document.getElementById('edit-content').value = content;
   }
   refreshArticleImageGallery();
-  showToast(`✅ ${uploaded.length} image(s) converted to WebP & inserted!`);
+  showToast(`✅ ${uploaded.length} image(s) converted to WebP & uploaded to GitHub Cloud!`);
 }
 
 async function savePost() {
@@ -657,6 +759,7 @@ async function savePost() {
     categories: [catSlug],
     status: document.getElementById('edit-status').value,
     date: document.getElementById('edit-date').value.trim(),
+    modified: new Date().toISOString().slice(0, 16).replace('T', ' '),
     seo_title: document.getElementById('edit-seo-title').value.trim().slice(0, 60),
     seo_description: document.getElementById('edit-seo-desc').value.trim().slice(0, 160),
     featured: document.getElementById('edit-featured').value.trim(),
@@ -667,29 +770,38 @@ async function savePost() {
     alert('Title and slug are required!');
     return;
   }
-  showToast('Saving article & rebuilding site...');
-  const res = await fetch('/api/save_post', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
-  });
-  const out = await res.json();
-  if (out.ok) {
+
+  if (payload.id) {
+    const idx = ALL_POSTS.findIndex(x => x.id === payload.id);
+    if (idx !== -1) ALL_POSTS[idx] = Object.assign({}, ALL_POSTS[idx], payload);
+  } else {
+    payload.id = Math.max(0, ...ALL_POSTS.map(x => x.id || 0)) + 1;
+    ALL_POSTS.unshift(payload);
+  }
+
+  showToast('☁️ Saving article to GitHub Cloud & triggering automatic site rebuild...');
+  try {
+    const jsonStr = JSON.stringify(ALL_POSTS, null, 2);
+    await ghPutFile('cms-data/articles.json', utf8ToBase64(jsonStr), `CMS Publish: ${payload.title}`);
+    // If also running on localhost, sync local disk too
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      fetch('/api/save_post', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }).catch(() => {});
+    }
     closeEditor();
-    await loadData();
-    showToast('✅ Article Saved & Static Page Rebuilt!');
+    renderTable();
+    showToast('✅ Published to GitHub Cloud! GitHub Actions is rebuilding live HTML pages (~20s).');
+  } catch (err) {
+    alert('Error saving to GitHub Cloud: ' + err.message);
   }
 }
 
-async function openSettings() {
-  const res = await fetch('/api/settings');
-  const s = await res.json();
-  document.getElementById('set-ga4').value = s.ga4_id || 'G-MTS6C9QM0N';
-  document.getElementById('set-clarity').value = s.clarity_id || 'x9ncd53tna';
-  document.getElementById('set-adsense').value = s.new_adsense_code || '';
-  document.getElementById('set-header').value = s.header_code || '';
-  document.getElementById('set-footer').value = s.footer_code || '';
-  document.getElementById('set-adstxt').value = s.ads_txt || '';
+function openSettings() {
+  document.getElementById('set-ga4').value = SITE_SETTINGS.ga4_id || 'G-MTS6C9QM0N';
+  document.getElementById('set-clarity').value = SITE_SETTINGS.clarity_id || 'x9ncd53tna';
+  document.getElementById('set-adsense').value = SITE_SETTINGS.new_adsense_code || '';
+  document.getElementById('set-header').value = SITE_SETTINGS.header_code || '';
+  document.getElementById('set-footer').value = SITE_SETTINGS.footer_code || '';
+  document.getElementById('set-adstxt').value = SITE_SETTINGS.ads_txt || '';
   document.getElementById('settings-modal').classList.add('open');
 }
 
@@ -698,44 +810,46 @@ function closeSettings() {
 }
 
 async function saveSettings() {
-  const payload = {
+  SITE_SETTINGS = Object.assign({}, SITE_SETTINGS, {
     ga4_id: document.getElementById('set-ga4').value.trim(),
     clarity_id: document.getElementById('set-clarity').value.trim(),
     new_adsense_code: document.getElementById('set-adsense').value,
     header_code: document.getElementById('set-header').value,
     footer_code: document.getElementById('set-footer').value,
     ads_txt: document.getElementById('set-adstxt').value,
-  };
-  showToast('Saving settings & rebuilding site...');
-  const res = await fetch('/api/save_settings', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
   });
-  const out = await res.json();
-  if (out.ok) {
+  showToast('☁️ Saving settings & ads.txt directly to GitHub Cloud...');
+  try {
+    await ghPutFile('cms-data/settings.json', utf8ToBase64(JSON.stringify(SITE_SETTINGS, null, 2)), 'Update Header/Footer & AdSense Settings');
+    await ghPutFile('ads.txt', utf8ToBase64(SITE_SETTINGS.ads_txt || ''), 'Update ads.txt');
     closeSettings();
-    showToast('✅ Header/Footer, GA4, Clarity & AdSense Settings Saved!');
+    showToast('✅ Settings Saved to GitHub Cloud! Site is rebuilding automatically.');
+  } catch (err) {
+    alert('Error saving settings: ' + err.message);
   }
 }
 
-async function rebuildSite() {
-  showToast('⚡ Rebuilding all 234+ pages...');
-  const res = await fetch('/api/rebuild', { method: 'POST' });
-  const out = await res.json();
-  if (out.ok) {
-    showToast(`✅ Rebuilt ${out.stats.published} articles & ${out.stats.categories} room categories!`);
-  }
-}
-
-async function pushGitHub() {
-  showToast('🚀 Pushing & deploying latest build to GitHub...');
-  const res = await fetch('/api/push_github', { method: 'POST' });
-  const out = await res.json();
-  if (out.ok) {
-    showToast('✅ Pushed to GitHub Live!');
-  } else {
-    alert(out.error || 'GitHub remote not configured yet.');
+async function triggerCloudRebuild() {
+  showToast('☁️ Triggering GitHub Actions Cloud Builder...');
+  try {
+    const token = unlockGithubToken();
+    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/rebuild-site.yml/dispatches`, {
+      method: "POST",
+      headers: {
+        "Authorization": `token ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ ref: "main" })
+    });
+    if (res.ok || res.status === 204) {
+      showToast('✅ Cloud Rebuild Triggered on GitHub! Live in ~20 seconds.');
+    } else {
+      await ghPutFile('cms-data/settings.json', utf8ToBase64(JSON.stringify(SITE_SETTINGS, null, 2)), 'Trigger Cloud Rebuild');
+      showToast('✅ Cloud Rebuild Triggered on GitHub!');
+    }
+  } catch (err) {
+    alert('Cloud rebuild error: ' + err.message);
   }
 }
 

@@ -1,0 +1,27 @@
+name: Cloud Auto-Rebuild DreamHomeDecor
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "cms-data/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Rebuild all HTML pages, categories & sitemaps in cloud
+        run: python3 cloud_builder.py
+
+      - name: Commit & Push updated static pages
+        run: |
+          git config user.name "DreamHomeDecor Cloud CMS"
+          git config user.email "admin@dreamhomedecor.net"
+          git add -A
+          git diff --staged --quiet || (git commit -m "Cloud CMS Auto-Rebuild [skip ci]" && git push origin main)

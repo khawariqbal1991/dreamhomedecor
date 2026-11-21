@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Cloud Admin Dashboard ‹ Dream Home Decor</title>
+<style>
+  :root {
+    --wp-sidebar: #1c1917;
+    --wp-accent: #b4532a;
+    --wp-accent-dk: #8f3e1c;
+    --wp-sage: #233d31;
+    --bg-main: #f4f2ed;
+    --card-bg: #ffffff;
+    --text-main: #1c1917;
+    --text-muted: #57534e;
+    --border: #ddd6cb;
+    --green: #008a20;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+  }
+  .wp-sidebar {
+    width: 235px;
+    background: var(--wp-sidebar);
+    color: #f5f5f4;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .wp-brand {
+    padding: 18px 16px;
+    border-bottom: 1px solid #332e2a;
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+  }
+  .wp-brand span.dot {
+    width: 10px; height: 10px; border-radius: 50%; background: #4ade80; display: inline-block;
+  }
+  .wp-nav { list-style: none; padding: 10px 0; margin: 0; flex: 1; }
+  .wp-nav li a, .wp-nav li button {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 11px 16px;
+    color: #e7e5e4; text-decoration: none; font-size: 14px;
+    background: none; border: none; text-align: left; cursor: pointer;
+  }
+  .wp-nav li a:hover, .wp-nav li button:hover, .wp-nav li a.active, .wp-nav li button.active {
+    background: var(--wp-accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .wp-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .wp-topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .wp-topbar-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .wp-topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    cursor: pointer; border: 1px solid transparent; text-decoration: none;
+  }
+  .btn-primary { background: var(--wp-accent); color: #fff; }
+  .btn-primary:hover { background: var(--wp-accent-dk); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-sage { background: var(--wp-sage); color: #fff; }
+  .btn-outline { background: #fff; border-color: var(--border); color: var(--text-main); }
+  .btn-outline:hover { border-color: var(--wp-accent); color: var(--wp-accent); }
+  .wp-content { padding: 24px; max-width: 1440px; width: 100%; }
+  .stats-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px; margin-bottom: 22px;
+  }
+  .stat-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .stat-card .lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+  .stat-card .val { font-size: 26px; font-weight: 800; margin-top: 4px; color: var(--text-main); }
+  .filter-bar {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .filter-bar input, .filter-bar select {
+    padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13.5px;
+  }
+  .filter-bar input { flex: 1; min-width: 220px; }
+  .posts-table-wrap {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow-x: auto;
+  }
+  table.wp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.wp-table th, table.wp-table td {
+    padding: 12px 14px; text-align: left; border-bottom: 1px solid #eeeadd; vertical-align: middle;
+  }
+  table.wp-table th { background: #faf8f5; font-weight: 700; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+  table.wp-table tr:hover { background: #fdfbf7; }
+  .thumb-mini { width: 64px; height: 46px; object-fit: cover; border-radius: 6px; background: #eee; }
+  .badge {
+    display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700;
+  }
+  .badge-pub { background: #dcfce7; color: #166534; }
+  .badge-cat { background: #fdf3ee; color: #b4532a; }
+  .seo-len { font-size: 11.5px; font-weight: 700; }
+  .seo-ok { color: #166534; }
+  .seo-warn { color: #b91c1c; }
+
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.58);
+    z-index: 200; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-card {
+    background: #fff; border-radius: 14px; max-width: 1120px; width: 100%;
+    max-height: 92vh; display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+  }
+  .modal-head {
+    padding: 16px 22px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-head h2 { margin: 0; font-size: 17px; }
+  .modal-body { padding: 20px 22px; overflow-y: auto; flex: 1; }
+  .modal-foot {
+    padding: 14px 22px; border-top: 1px solid var(--border); background: #faf8f5;
+    display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;
+  }
+  .form-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 14px; }
+  .form-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .field label { font-size: 12.5px; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; }
+  .field input, .field select, .field textarea {
+    padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13.5px; font-family: inherit;
+  }
+  .img-gallery-box {
+    background: #faf8f5; border: 1px dashed var(--wp-accent); border-radius: 10px;
+    padding: 14px; margin-bottom: 14px;
+  }
+  .img-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px; margin-top: 10px;
+  }
+  .img-tile {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 6px;
+    text-align: center; font-size: 11px;
+  }
+  .img-tile img { width: 100%; height: 78px; object-fit: cover; border-radius: 5px; margin-bottom: 4px; }
+  .toast {
+    position: fixed; bottom: 22px; right: 22px; background: #1c1917; color: #fff;
+    padding: 12px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25); display: none; z-index: 500;
+  }
+  .toast.show { display: block; }
+  .login-gate {
+    position: fixed; inset: 0; background: #1c1917; z-index: 9999;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .login-gate.hidden { display: none; }
+  .login-box {
+    background: #fff; border-radius: 16px; max-width: 410px; width: 100%;
+    padding: 32px 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  }
+  .login-box h2 { margin: 0 0 6px; font-size: 20px; color: #1c1917; }
+  @media (max-width: 780px) {
+    body { flex-direction: column; }
+    .wp-sidebar { width: 100%; }
+    .wp-nav { display: flex; overflow-x: auto; padding: 4px 8px; }
+    .wp-nav li a, .wp-nav li button { white-space: nowrap; padding: 8px 12px; }
+  }
+</style>
+</head>
+<body>
+  <div class="login-gate" id="login-gate">
+    <div class="login-box">
+      <div style="font-size:12px;font-weight:800;color:#b4532a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">DREAM HOME DECOR · 100% CLOUD CMS</div>
+      <h2>Sign In From Any Device</h2>
+      <p style="font-size:13px;color:#57534e;margin:0 0 18px">Log in from any phone, laptop, or PC anywhere in the world to publish posts &amp; auto-WebP images directly to GitHub Cloud (No Mac required).</p>
+      <form onsubmit="return doAdminLogin(event)">
+        <div class="field">
+          <label>Username</label>
+          <input type="text" id="lg-user" value="admin" required>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="lg-pass" placeholder="Enter password..." required>
+        </div>
+        <div id="lg-err" style="display:none;color:#b91c1c;font-size:12.5px;font-weight:700;margin-bottom:10px">Invalid username or password.</div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:11px">🔒 Log In to Cloud Dashboard →</button>
+      </form>
+    </div>
+  </div>
+
+  <aside class="wp-sidebar">
+    <a class="wp-brand" href="/" target="_blank">
+      <span class="dot"></span>
+      <span>Dream Home Decor</span>
+    </a>
+    <ul class="wp-nav">
+      <li><button class="active" onclick="filterAll()">📝 All Articles (<span id="nav-total">0</span>)</button></li>
+      <li><button onclick="openEditor()">➕ Add New Article</button></li>
+      <li><button onclick="openSettings()">⚙️ Header / Footer &amp; AdSense</button></li>
+      <li><button onclick="triggerCloudRebuild()">☁️ Trigger Cloud Rebuild</button></li>
+      <li><a href="/" target="_blank">🌐 View Live Site ↗</a></li>
+    </ul>
+  </aside>
+
+  <div class="wp-main">
+    <header class="wp-topbar">
+      <div class="wp-topbar-left">
+        <strong style="font-size:16px">Dream Home Decor — 100% Cloud-Autonomous CMS</strong>
+        <span class="badge badge-pub">Works From Any Phone / PC · No Mac Needed</span>
+      </div>
+      <div class="wp-topbar-right">
+        <button class="btn btn-primary" onclick="openEditor()">+ Add New Post</button>
+        <button class="btn btn-outline" onclick="openSettings()">⚙️ Header / Footer / AdSense</button>
+        <button class="btn btn-green" onclick="triggerCloudRebuild()">☁️ Sync &amp; Rebuild on GitHub Cloud</button>
+        <a class="btn btn-sage" href="/" target="_blank">🌐 Open Site ↗</a>
+        <button class="btn btn-outline" onclick="doAdminLogout()">🚪 Log Out</button>
+      </div>
+    </header>
+
+    <div class="wp-content">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="lbl">Published Articles</div>
+          <div class="val" id="st-pub">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="lbl">Room Categories</div>
+          <div class="val" id="st-cat">13</div>
+        </div>
+        <div class="stat-card">
+          <div class="lbl">Cloud Auto-WebP Engine</div>
+          <div class="val" style="color:var(--green);font-size:18px;margin-top:8px">Browser Canvas WebP + GitHub API</div>
+        </div>
+        <div class="stat-card">
+          <div class="lbl">AdSense &amp; Analytics Active</div>
+          <div class="val" style="font-size:14px;margin-top:8px;color:var(--green)">ca-pub-4002444368603667 + GA4 + Clarity</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <input type="search" id="q-search" placeholder="Search 234+ articles by title, slug, or keyword..." oninput="renderTable()">
+        <select id="q-cat" onchange="renderTable()">
+          <option value="">All Room Categories</option>
+        </select>
+      </div>
+
+      <div class="posts-table-wrap">
+        <table class="wp-table">
+          <thead>
+            <tr>
+              <th style="width:76px">Image</th>
+              <th>Title &amp; Permalink</th>
+              <th>Category</th>
+              <th>SEO Title / Desc Length</th>
+              <th>Date</th>
+              <th style="text-align:right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="posts-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST EDITOR MODAL -->
+  <div class="modal-backdrop" id="editor-modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modal-title">Edit Article</h2>
+        <button class="btn btn-outline" onclick="closeEditor()">✕ Close</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-id">
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Article Title *</label>
+            <input type="text" id="edit-title" oninput="autoSlugAndSeo()">
+          </div>
+          <div class="field">
+            <label>Permalink Slug * (dreamhomedecor.net/&lt;slug&gt;/)</label>
+            <input type="text" id="edit-slug">
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="field">
+            <label>Room Category</label>
+            <select id="edit-cat"></select>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <select id="edit-status">
+              <option value="publish">Published</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Publish Date</label>
+            <input type="text" id="edit-date">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="field">
+            <label>
+              <span>SEO Meta Title (Max 60 chars)</span>
+              <span id="cnt-title" class="seo-len seo-ok">0 / 60</span>
+            </label>
+            <input type="text" id="edit-seo-title" maxlength="60" oninput="updateSeoCounters()">
+          </div>
+          <div class="field">
+            <label>
+              <span>SEO Meta Description (Max 160 chars)</span>
+              <span id="cnt-desc" class="seo-len seo-ok">0 / 160</span>
+            </label>
+            <input type="text" id="edit-seo-desc" maxlength="160" oninput="updateSeoCounters()">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Featured Image URL (Auto-WebP)</label>
+          <input type="text" id="edit-featured">
+        </div>
+
+        <div class="img-gallery-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+            <div>
+              <strong>📸 100% Cloud Auto-WebP Image Uploader &amp; H2 Inserter</strong>
+              <div style="font-size:12px;color:var(--text-muted)">Select JPG/PNG/WebP images from ANY phone or computer — converts to compressed .webp right in your browser, uploads directly to GitHub, and inserts after each H2 heading!</div>
+            </div>
+            <label class="btn btn-primary" style="cursor:pointer">
+              📤 Upload &amp; Auto-Convert to WebP
+              <input type="file" id="bulk-img-input" multiple accept="image/*" style="display:none" onchange="handleBulkImageUpload(this)">
+            </label>
+          </div>
+          <div class="img-grid" id="article-img-gallery"></div>
+        </div>
+
+        <div class="field">
+          <label>Short Excerpt</label>
+          <textarea id="edit-excerpt" rows="2"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Article HTML Content</label>
+          <textarea id="edit-content" rows="14" style="font-family:monospace;font-size:12.5px" oninput="refreshArticleImageGallery()"></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-outline" onclick="closeEditor()">Cancel</button>
+        <button class="btn btn-primary" onclick="savePost()">💾 Save &amp; Publish to GitHub Cloud</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER / FOOTER / ADSENSE SETTINGS MODAL -->
+  <div class="modal-backdrop" id="settings-modal">
+    <div class="modal-card" style="max-width:760px">
+      <div class="modal-head">
+        <h2>⚙️ Header, Footer, Analytics &amp; AdSense Settings</h2>
+        <button class="btn btn-outline" onclick="closeSettings()">✕ Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid-2">
+          <div class="field">
+            <label>Google Analytics 4 (GA4) ID</label>
+            <input type="text" id="set-ga4" placeholder="G-MTS6C9QM0N">
+          </div>
+          <div class="field">
+            <label>Microsoft Clarity Project ID</label>
+            <input type="text" id="set-clarity" placeholder="x9ncd53tna">
+          </div>
+        </div>
+        <div class="field">
+          <label>Google AdSense Head Tags</label>
+          <textarea id="set-adsense" rows="4" style="font-family:monospace"></textarea>
+        </div>
+        <div class="field">
+          <label>Custom Header Code (Google Search Console Verification Meta Tags)</label>
+          <textarea id="set-header" rows="3" style="font-family:monospace"></textarea>
+        </div>
+        <div class="field">
+          <label>Custom Footer Code (Before &lt;/body&gt;)</label>
+          <textarea id="set-footer" rows="3" style="font-family:monospace"></textarea>
+        </div>
+        <div class="field">
+          <label>ads.txt Content (/ads.txt)</label>
+          <textarea id="set-adstxt" rows="3" style="font-family:monospace"></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-outline" onclick="closeSettings()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings to GitHub Cloud</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+const GH_OWNER = "khawariqbal1991";
+const GH_REPO = "dreamhomedecor";
+const ENC_VAULT = "IxoVPls9BhgtaH1EcWAjOxVXLH0qBApEYltPSysmAycoHV09DmpmXg==";
+
+let ALL_POSTS = [];
+let ALL_CATS = {};
+let SITE_SETTINGS = {};
+
+function unlockGithubToken() {
+  const pass = localStorage.getItem('dhd_admin_pass') || 'DreamHome2026!';
+  const raw = atob(ENC_VAULT);
+  let out = '';
+  for (let i = 0; i < raw.length; i++) {
+    out += String.fromCharCode(raw.charCodeAt(i) ^ pass.charCodeAt(i % pass.length));
+  }
+  return out;
+}
+
+(function checkAuth() {
+  if (localStorage.getItem('dhd_admin_authed') === '1') {
+    document.getElementById('login-gate').classList.add('hidden');
+  }
+})();
+
+function doAdminLogin(e) {
+  e.preventDefault();
+  const u = document.getElementById('lg-user').value.trim();
+  const p = document.getElementById('lg-pass').value;
+  if (u === 'admin' && p === 'DreamHome2026!') {
+    localStorage.setItem('dhd_admin_authed', '1');
+    localStorage.setItem('dhd_admin_pass', p);
+    document.getElementById('login-gate').classList.add('hidden');
+    document.getElementById('lg-err').style.display = 'none';
+    loadData();
+  } else {
+    document.getElementById('lg-err').style.display = 'block';
+  }
+  return false;
+}
+
+function doAdminLogout() {
+  localStorage.removeItem('dhd_admin_authed');
+  localStorage.removeItem('dhd_admin_pass');
+  document.getElementById('login-gate').classList.remove('hidden');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+// GitHub Contents API helper (Reads & Writes directly to GitHub Cloud from any browser!)
+async function ghPutFile(repoPath, contentBase64, commitMsg) {
+  const token = unlockGithubToken();
+  const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${repoPath}`;
+  const headers = {
+    "Authorization": `token ${token}`,
+    "Accept": "application/vnd.github+json",
+    "Content-Type": "application/json"
+  };
+  let sha = null;
+  try {
+    const getRes = await fetch(apiUrl, { headers });
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    }
+  } catch (e) {}
+
+  const body = { message: commitMsg, content: contentBase64, branch: "main" };
+  if (sha) body.sha = sha;
+  const putRes = await fetch(apiUrl, { method: "PUT", headers, body: JSON.stringify(body) });
+  if (!putRes.ok) {
+    const errTxt = await putRes.text();
+    throw new Error(`GitHub API error (${putRes.status}): ${errTxt}`);
+  }
+  return await putRes.json();
+}
+
+function utf8ToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function base64ToUtf8(b64) {
+  return decodeURIComponent(escape(atob(b64.replace(/\s/g, ''))));
+}
+
+async function fetchJsonSmart(ghPath, staticPath) {
+  // If logged in, try GitHub API first so edits show up with 0s CDN cache delay!
+  if (localStorage.getItem('dhd_admin_authed') === '1') {
+    try {
+      const token = unlockGithubToken();
+      const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${ghPath}`, {
+        headers: { "Authorization": `token ${token}`, "Accept": "application/vnd.github.v3.raw" }
+      });
+      if (res.ok) return await res.json();
+    } catch (e) {}
+  }
+  const r2 = await fetch(`${staticPath}?t=${Date.now()}`);
+  return await r2.json();
+}
+
+async function loadData() {
+  try {
+    const [posts, cats, settings] = await Promise.all([
+      fetchJsonSmart('cms-data/articles.json', '/cms-data/articles.json'),
+      fetchJsonSmart('cms-data/categories.json', '/cms-data/categories.json'),
+      fetchJsonSmart('cms-data/settings.json', '/cms-data/settings.json')
+    ]);
+    ALL_POSTS = posts;
+    ALL_CATS = cats;
+    SITE_SETTINGS = settings;
+    ALL_POSTS.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    document.getElementById('nav-total').textContent = ALL_POSTS.length;
+    document.getElementById('st-pub').textContent = ALL_POSTS.filter(p => p.status === 'publish').length;
+    document.getElementById('st-cat').textContent = Object.keys(ALL_CATS).length;
+
+    const qCat = document.getElementById('q-cat');
+    const eCat = document.getElementById('edit-cat');
+    qCat.innerHTML = '<option value="">All Room Categories</option>';
+    eCat.innerHTML = '';
+    for (const [slug, obj] of Object.entries(ALL_CATS)) {
+      qCat.innerHTML += `<option value="${slug}">${obj.name}</option>`;
+      eCat.innerHTML += `<option value="${slug}">${obj.name}</option>`;
+    }
+    renderTable();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function filterAll() {
+  document.getElementById('q-search').value = '';
+  document.getElementById('q-cat').value = '';
+  renderTable();
+}
+
+function renderTable() {
+  const q = document.getElementById('q-search').value.toLowerCase().trim();
+  const cat = document.getElementById('q-cat').value;
+  const filtered = ALL_POSTS.filter(p => {
+    if (cat && p.category !== cat) return false;
+    if (q && !(p.title.toLowerCase().includes(q) || p.slug.toLowerCase().includes(q))) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('posts-tbody');
+  tbody.innerHTML = filtered.map(p => {
+    const tLen = (p.seo_title || p.title || '').length;
+    const dLen = (p.seo_description || p.excerpt || '').length;
+    return `<tr>
+      <td><img class="thumb-mini" src="${p.featured || '/assets/default-decor.svg'}" loading="lazy"></td>
+      <td>
+        <strong style="font-size:14px">${p.title}</strong>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px">/${p.slug}/</div>
+      </td>
+      <td><span class="badge badge-cat">${p.category_name || p.category}</span></td>
+      <td>
+        <span class="seo-len ${tLen <= 60 ? 'seo-ok' : 'seo-warn'}">Title: ${tLen}/60</span> ·
+        <span class="seo-len ${dLen <= 160 ? 'seo-ok' : 'seo-warn'}">Desc: ${dLen}/160</span>
+      </td>
+      <td style="font-size:12.5px;color:var(--text-muted)">${(p.date || '').slice(0, 10)}</td>
+      <td style="text-align:right;white-space:nowrap">
+        <button class="btn btn-outline" onclick="openEditor(${p.id})">✏️ Edit</button>
+        <a class="btn btn-outline" href="/${p.slug}/" target="_blank">👁️ View ↗</a>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function updateSeoCounters() {
+  const t = document.getElementById('edit-seo-title').value;
+  const d = document.getElementById('edit-seo-desc').value;
+  const ct = document.getElementById('cnt-title');
+  const cd = document.getElementById('cnt-desc');
+  ct.textContent = `${t.length} / 60`;
+  ct.className = 'seo-len ' + (t.length <= 60 ? 'seo-ok' : 'seo-warn');
+  cd.textContent = `${d.length} / 160`;
+  cd.className = 'seo-len ' + (d.length <= 160 ? 'seo-ok' : 'seo-warn');
+}
+
+function autoSlugAndSeo() {
+  const title = document.getElementById('edit-title').value;
+  if (!document.getElementById('edit-id').value) {
+    document.getElementById('edit-slug').value = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+  if (!document.getElementById('edit-seo-title').value) {
+    document.getElementById('edit-seo-title').value = title.slice(0, 60);
+  }
+  updateSeoCounters();
+}
+
+function refreshArticleImageGallery() {
+  const html = document.getElementById('edit-content').value || '';
+  const gal = document.getElementById('article-img-gallery');
+  const matches = [...html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)];
+  if (!matches.length) {
+    gal.innerHTML = '<div style="font-size:12px;color:var(--text-muted)">No images inside content yet. Upload above to auto-convert to WebP &amp; insert!</div>';
+    return;
+  }
+  gal.innerHTML = matches.map((m, i) => `
+    <div class="img-tile">
+      <img src="${m[1]}" loading="lazy">
+      <div>Image #${i + 1}</div>
+    </div>
+  `).join('');
+}
+
+function openEditor(postId = null) {
+  const modal = document.getElementById('editor-modal');
+  if (postId) {
+    const p = ALL_POSTS.find(x => x.id === postId);
+    if (!p) return;
+    document.getElementById('modal-title').textContent = 'Edit Article #' + p.id;
+    document.getElementById('edit-id').value = p.id;
+    document.getElementById('edit-title').value = p.title || '';
+    document.getElementById('edit-slug').value = p.slug || '';
+    document.getElementById('edit-cat').value = p.category || 'living-room-ideas';
+    document.getElementById('edit-status').value = p.status || 'publish';
+    document.getElementById('edit-date').value = p.date || new Date().toISOString().slice(0, 16).replace('T', ' ');
+    document.getElementById('edit-seo-title').value = (p.seo_title || p.title || '').slice(0, 60);
+    document.getElementById('edit-seo-desc').value = (p.seo_description || p.excerpt || '').slice(0, 160);
+    document.getElementById('edit-featured').value = p.featured || '';
+    document.getElementById('edit-excerpt').value = p.excerpt || '';
+    document.getElementById('edit-content').value = p.content || '';
+  } else {
+    document.getElementById('modal-title').textContent = 'Add New Home Decor Article';
+    document.getElementById('edit-id').value = '';
+    document.getElementById('edit-title').value = '';
+    document.getElementById('edit-slug').value = '';
+    document.getElementById('edit-cat').value = 'living-room-ideas';
+    document.getElementById('edit-status').value = 'publish';
+    document.getElementById('edit-date').value = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    document.getElementById('edit-seo-title').value = '';
+    document.getElementById('edit-seo-desc').value = '';
+    document.getElementById('edit-featured').value = '';
+    document.getElementById('edit-excerpt').value = '';
+    document.getElementById('edit-content').value = '';
+  }
+  updateSeoCounters();
+  refreshArticleImageGallery();
+  modal.classList.add('open');
+}
+
+function closeEditor() {
+  document.getElementById('editor-modal').classList.remove('open');
+}
+
+// 100% Browser-Native WebP Converter using HTML5 Canvas (works on any phone, iPad, Windows, or Mac!)
+function convertFileToWebpBase64InBrowser(file, maxWidth = 960, quality = 0.80) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+        if (w > maxWidth) {
+          h = Math.round((h * maxWidth) / w);
+          w = maxWidth;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const webpDataUrl = canvas.toDataURL('image/webp', quality);
+        const b64 = webpDataUrl.split(',')[1];
+        resolve(b64);
+      };
+      img.onerror = reject;
+      img.src = ev.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleBulkImageUpload(input) {
+  if (!input.files || !input.files.length) return;
+  const files = Array.from(input.files).sort((a, b) => a.name.localeCompare(b.name));
+  const slug = (document.getElementById('edit-slug').value.trim() || 'decor-guide').replace(/[^a-z0-9\-]/gi, '-').toLowerCase();
+  const title = document.getElementById('edit-title').value.trim() || 'Home Decor Idea';
+
+  showToast(`Converting ${files.length} image(s) to WebP in browser & uploading to GitHub Cloud...`);
+  const uploaded = [];
+  for (let i = 0; i < files.length; i++) {
+    const f = files[i];
+    const cleanName = f.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9\-_]/gi, '-').toLowerCase() || `img-${i+1}`;
+    const webpB64 = await convertFileToWebpBase64InBrowser(f, 960, 0.80);
+    const repoPath = `assets/uploads/${slug}/${cleanName}.webp`;
+    await ghPutFile(repoPath, webpB64, `Upload WebP image ${cleanName}.webp for ${slug}`);
+    uploaded.push(`/${repoPath}`);
+    showToast(`Uploaded ${i + 1} / ${files.length} WebP images to GitHub Cloud...`);
+  }
+  if (!uploaded.length) return;
+
+  const featEl = document.getElementById('edit-featured');
+  let startIdx = 0;
+  if (!featEl.value.trim()) {
+    featEl.value = uploaded[0];
+    startIdx = 1;
+  }
+
+  let content = document.getElementById('edit-content').value;
+  const rem = uploaded.slice(startIdx);
+  if (rem.length > 0) {
+    let idx = 0;
+    content = content.replace(/(<h2\b[^>]*>[\s\S]*?<\/h2>)/gi, (match) => {
+      if (idx < rem.length) {
+        const u = rem[idx++];
+        return `${match}\n<figure class="wp-block-image"><img src="${u}" alt="${title}" loading="lazy" decoding="async"></figure>`;
+      }
+      return match;
+    });
+    while (idx < rem.length) {
+      const u = rem[idx++];
+      content += `\n<figure class="wp-block-image"><img src="${u}" alt="${title}" loading="lazy" decoding="async"></figure>`;
+    }
+    document.getElementById('edit-content').value = content;
+  }
+  refreshArticleImageGallery();
+  showToast(`✅ ${uploaded.length} image(s) converted to WebP & uploaded to GitHub Cloud!`);
+}
+
+async function savePost() {
+  const catSlug = document.getElementById('edit-cat').value;
+  const catName = (ALL_CATS[catSlug] && ALL_CATS[catSlug].name) || 'Home Decor Ideas';
+  const payload = {
+    id: document.getElementById('edit-id').value ? Number(document.getElementById('edit-id').value) : null,
+    title: document.getElementById('edit-title').value.trim(),
+    slug: document.getElementById('edit-slug').value.trim(),
+    category: catSlug,
+    category_name: catName,
+    categories: [catSlug],
+    status: document.getElementById('edit-status').value,
+    date: document.getElementById('edit-date').value.trim(),
+    modified: new Date().toISOString().slice(0, 16).replace('T', ' '),
+    seo_title: document.getElementById('edit-seo-title').value.trim().slice(0, 60),
+    seo_description: document.getElementById('edit-seo-desc').value.trim().slice(0, 160),
+    featured: document.getElementById('edit-featured').value.trim(),
+    excerpt: document.getElementById('edit-excerpt').value.trim(),
+    content: document.getElementById('edit-content').value,
+  };
+  if (!payload.title || !payload.slug) {
+    alert('Title and slug are required!');
+    return;
+  }
+
+  if (payload.id) {
+    const idx = ALL_POSTS.findIndex(x => x.id === payload.id);
+    if (idx !== -1) ALL_POSTS[idx] = Object.assign({}, ALL_POSTS[idx], payload);
+  } else {
+    payload.id = Math.max(0, ...ALL_POSTS.map(x => x.id || 0)) + 1;
+    ALL_POSTS.unshift(payload);
+  }
+
+  showToast('☁️ Saving article to GitHub Cloud & triggering automatic site rebuild...');
+  try {
+    const jsonStr = JSON.stringify(ALL_POSTS, null, 2);
+    await ghPutFile('cms-data/articles.json', utf8ToBase64(jsonStr), `CMS Publish: ${payload.title}`);
+    // If also running on localhost, sync local disk too
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      fetch('/api/save_post', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }).catch(() => {});
+    }
+    closeEditor();
+    renderTable();
+    showToast('✅ Published to GitHub Cloud! GitHub Actions is rebuilding live HTML pages (~20s).');
+  } catch (err) {
+    alert('Error saving to GitHub Cloud: ' + err.message);
+  }
+}
+
+function openSettings() {
+  document.getElementById('set-ga4').value = SITE_SETTINGS.ga4_id || 'G-MTS6C9QM0N';
+  document.getElementById('set-clarity').value = SITE_SETTINGS.clarity_id || 'x9ncd53tna';
+  document.getElementById('set-adsense').value = SITE_SETTINGS.new_adsense_code || '';
+  document.getElementById('set-header').value = SITE_SETTINGS.header_code || '';
+  document.getElementById('set-footer').value = SITE_SETTINGS.footer_code || '';
+  document.getElementById('set-adstxt').value = SITE_SETTINGS.ads_txt || '';
+  document.getElementById('settings-modal').classList.add('open');
+}
+
+function closeSettings() {
+  document.getElementById('settings-modal').classList.remove('open');
+}
+
+async function saveSettings() {
+  SITE_SETTINGS = Object.assign({}, SITE_SETTINGS, {
+    ga4_id: document.getElementById('set-ga4').value.trim(),
+    clarity_id: document.getElementById('set-clarity').value.trim(),
+    new_adsense_code: document.getElementById('set-adsense').value,
+    header_code: document.getElementById('set-header').value,
+    footer_code: document.getElementById('set-footer').value,
+    ads_txt: document.getElementById('set-adstxt').value,
+  });
+  showToast('☁️ Saving settings & ads.txt directly to GitHub Cloud...');
+  try {
+    await ghPutFile('cms-data/settings.json', utf8ToBase64(JSON.stringify(SITE_SETTINGS, null, 2)), 'Update Header/Footer & AdSense Settings');
+    await ghPutFile('ads.txt', utf8ToBase64(SITE_SETTINGS.ads_txt || ''), 'Update ads.txt');
+    closeSettings();
+    showToast('✅ Settings Saved to GitHub Cloud! Site is rebuilding automatically.');
+  } catch (err) {
+    alert('Error saving settings: ' + err.message);
+  }
+}
+
+async function triggerCloudRebuild() {
+  showToast('☁️ Triggering GitHub Actions Cloud Builder...');
+  try {
+    const token = unlockGithubToken();
+    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/rebuild-site.yml/dispatches`, {
+      method: "POST",
+      headers: {
+        "Authorization": `token ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ ref: "main" })
+    });
+    if (res.ok || res.status === 204) {
+      showToast('✅ Cloud Rebuild Triggered on GitHub! Live in ~20 seconds.');
+    } else {
+      await ghPutFile('cms-data/settings.json', utf8ToBase64(JSON.stringify(SITE_SETTINGS, null, 2)), 'Trigger Cloud Rebuild');
+      showToast('✅ Cloud Rebuild Triggered on GitHub!');
+    }
+  } catch (err) {
+    alert('Cloud rebuild error: ' + err.message);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
